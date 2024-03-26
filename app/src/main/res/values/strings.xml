@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_name">OBD_app2</string>
+    <string name="app_name">OBD_text_name</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="welcome_main_page_str">Welcome to QR Data Manager</string>
     <string name="welcome_page_str_login">Login:</string>
     <string name="welcome_page_str_enter_login">Enter login</string>
@@ -12,5 +13,10 @@
     <string name="welcome_reg_page_str_button">Create account</string>
     <string name="welcome_reg_page_str_email">Password:</string>
     <string name="welcome_reg_page_str_enter_email">Enter password</string>
+    <string name="welcome_page_nav_str_next">Next</string>
+    <string name="welcome_page_nav_str_back">Back</string>
+    <string name="welcome_page_nav_str_sign_in">Sign in</string>
     <string name="welcome_reg_page_str_label">Creating new account</string>
+
+
 </resources>
