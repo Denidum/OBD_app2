@@ -3,4 +3,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="welcome_main_page_str">Welcome to QR Data Manager</string>
+    <string name="welcome_page_str_login">Login:</string>
+    <string name="welcome_page_str_enter_login">Enter login</string>
+    <string name="welcome_page_str_pass">Password:</string>
+    <string name="welcome_page_str_enter_pass">Enter password</string>
+    <string name="welcome_auth_page_str_label">Enter login and password:</string>
+    <string name="welcome_auth_page_str_button">Log in</string>
 </resources>
