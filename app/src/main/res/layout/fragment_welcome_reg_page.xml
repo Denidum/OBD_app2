@@ -6,39 +6,126 @@
     tools:context=".welcome_reg_page">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/welc_reg_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="TextView" />
+            android:layout_gravity="center"
+            android:layout_marginTop="120dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="@string/welcome_reg_page_str_label"
+            android:textColor="@color/gray"
+            android:textSize="23sp" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center">
 
             <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
+                android:id="@+id/welc_reg_login_label"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="TextView" />
+                android:layout_gravity="start"
+                android:layout_marginTop="60dp"
+                android:fontFamily="@font/inter_medium"
+                android:text="@string/welcome_page_str_login"
+                android:textColor="@color/gray"
+                android:textSize="20sp"
+                />
 
             <EditText
-                android:id="@+id/editTextText"
+                android:id="@+id/welc_reg_login_textbox"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/box_for_edittext"
+                android:ems="10"
+                android:fontFamily="@font/inter_medium"
+                android:hint="@string/welcome_page_str_enter_login"
+                android:paddingStart="7dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textColor="@color/almostblack"
+                android:textColorHint="@color/gray_on_gray"
+                android:textSize="18sp" />
+            <TextView
+                android:id="@+id/welc_reg_email_label"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/inter_medium"
+                android:text="@string/welcome_reg_page_str_email"
+                android:textColor="@color/gray"
+                android:textSize="20sp"
+                />
+
+            <EditText
+                android:id="@+id/welc_reg_email_textbox"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/box_for_edittext"
+                android:ems="10"
+                android:fontFamily="@font/inter_medium"
+                android:hint="@string/welcome_reg_page_str_enter_email"
+                android:paddingStart="7dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textColor="@color/almostblack"
+                android:textColorHint="@color/gray_on_gray"
+                android:textSize="18sp" />
+            <TextView
+                android:id="@+id/welc_reg_pass_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/inter_medium"
+                android:text="@string/welcome_page_str_pass"
+                android:textColor="@color/gray"
+                android:textSize="20sp"
+                />
+
+            <EditText
+                android:id="@+id/welc_reg_pass_textbox"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="text"
-                android:text="Name" />
+                android:fontFamily="@font/inter_medium"
+                android:hint="@string/welcome_page_str_enter_pass"
+                android:textColor="@color/almostblack"
+                android:textColorHint="@color/gray_on_gray"
+                android:textSize="18sp"
+                android:layout_marginTop="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingStart="7dp"
+                android:background="@drawable/box_for_edittext"/>
+
+            <Button
+                android:id="@+id/welc_reg_log_in_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/welcome_reg_page_str_button"
+                android:backgroundTint="@color/gray"
+                android:layout_marginTop="40dp"
+                android:textColor="@color/almostblack"
+                android:textSize="20sp"
+                />
         </LinearLayout>
 
+
     </LinearLayout>
+
 </RelativeLayout>

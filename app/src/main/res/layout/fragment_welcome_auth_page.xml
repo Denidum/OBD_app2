@@ -92,7 +92,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/welcome_auth_page_str_button"
                 android:backgroundTint="@color/gray"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="40dp"
                 android:textColor="@color/almostblack"
                 android:textSize="20sp"
                 />

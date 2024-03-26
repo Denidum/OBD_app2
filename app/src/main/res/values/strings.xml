@@ -9,4 +9,8 @@
     <string name="welcome_page_str_enter_pass">Enter password</string>
     <string name="welcome_auth_page_str_label">Enter login and password:</string>
     <string name="welcome_auth_page_str_button">Log in</string>
+    <string name="welcome_reg_page_str_button">Create account</string>
+    <string name="welcome_reg_page_str_email">Password:</string>
+    <string name="welcome_reg_page_str_enter_email">Enter password</string>
+    <string name="welcome_reg_page_str_label">Creating new account</string>
 </resources>
