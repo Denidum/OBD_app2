@@ -21,7 +21,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:weightSum="100">
+                android:weightSum="100"
+                android:id="@+id/appBarBottom_linearlayout">
 
                 <LinearLayout
                     android:id="@+id/welcome_page_nav_back_button"
