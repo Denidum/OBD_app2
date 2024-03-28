@@ -31,6 +31,16 @@
                     android:layout_weight="20"
                     app:srcCompat="@drawable/qr_logo" />
 
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="60"
+                    android:fontFamily="@font/inter_bold"
+                    android:gravity="center"
+                    android:text="@string/main_page_top_tool_bar_str_main"
+                    android:textSize="18sp" />
+
             </LinearLayout>
         </com.google.android.material.appbar.AppBarLayout>
     </RelativeLayout>

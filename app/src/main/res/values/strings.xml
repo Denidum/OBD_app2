@@ -18,5 +18,6 @@
     <string name="welcome_page_nav_str_sign_in">Sign in</string>
     <string name="welcome_reg_page_str_label">Creating new account</string>
 
+    <string name="main_page_top_tool_bar_str_main">Main Menu</string>
 
 </resources>

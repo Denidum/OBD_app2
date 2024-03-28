@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/ic_qr"
+        android:icon="@drawable/vector_ic_qr"
+        android:title=""/>
+    <item
+        android:id="@+id/ic_database"
+        android:icon="@drawable/vector_ic_database"
+        android:title=""/>
+    <item
+        android:id="@+id/ic_home"
+        android:icon="@drawable/vector_ic_home"
+        android:title=""/>
+    <item
+        android:id="@+id/ic_scan"
+        android:icon="@drawable/vector_ic_scan"
+        android:title=""/>
+    <item
+        android:id="@+id/ic_user"
+        android:icon="@drawable/vector_ic_user"
+        android:title=""/>
+</menu>
