@@ -4,17 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:background = "@color/gray"
-        >
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/main_page_nav_menu"
-            app:menu="@menu/main_nav_menu"/>
 
-    </RelativeLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/main_page_nav_menu"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/gray"
+        app:itemIconSize="24dp"
+        app:itemIconTint="@color/almostblack"
+        app:labelVisibilityMode="unlabeled"
+        app:menu="@menu/main_nav_menu" />
+
 </merge>

@@ -10,7 +10,7 @@
         >
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="56dp"
             android:id="@+id/appBarTop"
             android:background = "@color/gray"
             android:paddingTop="7dp"
@@ -39,6 +39,7 @@
                     android:fontFamily="@font/inter_bold"
                     android:gravity="center"
                     android:text="@string/main_page_top_tool_bar_str_main"
+                    android:textColor="@color/almostblack"
                     android:textSize="18sp" />
 
             </LinearLayout>

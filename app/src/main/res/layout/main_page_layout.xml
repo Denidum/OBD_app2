@@ -7,36 +7,37 @@
     android:layout_height="match_parent"
     tools:context=".Main_page"
     android:background="@color/almostblack">
+
     <RelativeLayout
+        android:id="@+id/relLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/relLayout">
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
         <RelativeLayout
+            android:id="@+id/relLayoutTop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/relLayoutTop"
             android:layout_alignParentTop="true">
+
             <include layout="@layout/main_tool_bar_top" />
         </RelativeLayout>
+
         <RelativeLayout
+            android:id="@+id/relLayoutMiddle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/relLayoutMiddle"
             android:layout_above="@+id/relLayoutBottom"
             android:layout_below="@+id/relLayoutTop">
 
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/welc_page_frag_view"
-                android:name="com.example.obd_app2.welcome_main_page"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/relLayoutBottom"
             android:layout_alignParentBottom="true">
-            <include layout="@layout/main_tool_bar_bottom" />
+            <include layout="@layout/main_tool_bar_bottom"/>
         </RelativeLayout>
     </RelativeLayout>
 
