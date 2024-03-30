@@ -1,18 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Main_page_home">
+    tools:context=".Main_page_scan">
 
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Scan"
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:textColor="@color/gray"
-        android:fontFamily="@font/inter_bold"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
+
+            <Button
+                android:id="@+id/main_scan_page_open_camera_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="250dp"
+                android:backgroundTint="@color/gray"
+                android:text="@string/main_user_page_str_change_pass_button"
+                android:textColor="@color/almostblack"
+                android:textSize="20sp"
+                app:rippleColor="@color/gray_on_gray" />
+
+            <Button
+                android:id="@+id/main_user_page_upload_from_storage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/gray"
+                android:text="@string/main_user_page_str_log_out_button"
+                android:textColor="@color/almostblack"
+                android:textSize="20sp"
+                app:rippleColor="@color/gray_on_gray" />
+
+    </LinearLayout>
 
 
 </RelativeLayout>

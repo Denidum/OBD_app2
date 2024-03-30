@@ -11,13 +11,30 @@
     <string name="welcome_auth_page_str_label">Enter login and password:</string>
     <string name="welcome_auth_page_str_button">Log in</string>
     <string name="welcome_reg_page_str_button">Create account</string>
-    <string name="welcome_reg_page_str_email">Password:</string>
-    <string name="welcome_reg_page_str_enter_email">Enter password</string>
+    <string name="welcome_reg_page_str_email">Email:</string>
+    <string name="welcome_reg_page_str_enter_email">Enter email</string>
     <string name="welcome_page_nav_str_next">Next</string>
     <string name="welcome_page_nav_str_back">Back</string>
     <string name="welcome_page_nav_str_sign_in">Sign in</string>
     <string name="welcome_reg_page_str_label">Creating new account</string>
 
     <string name="main_page_top_tool_bar_str_main">Main Menu</string>
+    <string name="main_page_top_tool_bar_str_profile">Profile</string>
+    <string name="main_page_top_tool_bar_str_qr_scan">Qr Scanner</string>
+    <string name="main_page_top_tool_bar_str_database">My Tables</string>
+    <string name="main_page_top_tool_bar_str_qr_gen">Qr Generator</string>
+
+    <string name="main_user_page_str_log_out_button">Log Out</string>
+    <string name="main_user_page_str_change_pass_button">Change password</string>
+    <string name="main_user_page_str_email_label">Email:</string>
+    <string name="main_user_page_str_email">User email</string>
+    <string name="main_user_page_str_login_label">Login:</string>
+    <string name="main_user_page_str_login">User login</string>
+    <string name="main_user_page_str_id">User id</string>
+    <string name="main_user_page_str_id_label">Personal id:</string>
+    <string name="main_user_page_str_label">Account Information</string>
+
+    <string name="main_user_page_str_open_camera">Open Camera</string>
+    <string name="main_user_page_str_upload_from_storage">Upload from storage</string>
 
 </resources>
