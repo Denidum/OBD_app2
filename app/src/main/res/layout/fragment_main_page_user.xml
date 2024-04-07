@@ -13,7 +13,7 @@
         android:layout_centerInParent="true">
 
         <TextView
-            android:id="@+id/main_user_page_label"
+            android:id="@+id/main_gen_qr_page_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -116,7 +116,7 @@
                 android:background="@drawable/box_for_edittext"/>
 
             <Button
-                android:id="@+id/main_scan_page_open_camera_button"
+                android:id="@+id/main_database_add_table_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
@@ -127,7 +127,7 @@
                 app:rippleColor="@color/gray_on_gray" />
 
             <Button
-                android:id="@+id/main_user_page_upload_from_storage"
+                android:id="@+id/main_database_page_delete_table_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"

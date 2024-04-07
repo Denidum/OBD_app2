@@ -3,16 +3,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Main_page_home">
 
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Database"
-        android:layout_centerInParent="true"
-        android:textColor="@color/gray"
-        android:fontFamily="@font/inter_bold"
-        android:gravity="center"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp">
+        <TextView
+            android:id="@+id/main_gen_qr_page_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="70dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="@string/main_database_page_str_label"
+            android:textColor="@color/gray"
+            android:textSize="23sp" />
 
+        <ListView
+            android:id="@+id/main_database_page_database_list"
+            android:layout_width="wrap_content"
+            android:layout_height="400dp"
+            android:layout_marginTop="20dp">
 
+        </ListView>
+
+        <Button
+            android:id="@+id/main_database_add_table_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:backgroundTint="@color/gray"
+            android:text="@string/main_database_page_str_add_button"
+            android:textColor="@color/almostblack"
+            android:textSize="20sp"
+            app:rippleColor="@color/gray_on_gray" />
+
+        <Button
+            android:id="@+id/main_database_page_delete_table_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/gray"
+            android:text="@string/main_database_page_str_delete_button"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:textColor="@color/almostblack"
+            android:textSize="20sp"
+            app:rippleColor="@color/gray_on_gray" />
+
+    </LinearLayout>
 </RelativeLayout>

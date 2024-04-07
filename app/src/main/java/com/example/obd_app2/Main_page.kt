@@ -1,6 +1,7 @@
 package com.example.obd_app2
 
 import android.os.Bundle
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -10,8 +11,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class Main_page : AppCompatActivity() {
-    private var currSelectedItem: Int = 2;
+    private var currSelectedItem: Int = 2
     private val fragArray = arrayOf(Main_page_qr(), Main_page_database(), Main_page_home(), Main_page_scan(),Main_page_user())
+    private val titlesArray = arrayOf(R.string.main_page_top_tool_bar_str_qr_gen, R.string.main_page_top_tool_bar_str_database, R.string.main_page_top_tool_bar_str_main, R.string.main_page_top_tool_bar_str_qr_scan, R.string.main_page_top_tool_bar_str_profile)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -28,6 +30,7 @@ class Main_page : AppCompatActivity() {
         bnv.selectedItemId = R.id.ic_home
         bnv.setOnItemSelectedListener{
             compareItemsSelected(it.itemId)
+            findViewById<TextView>(R.id.main_tool_bar_top_title).text = getString(titlesArray[currSelectedItem])
             true
         }
     }
