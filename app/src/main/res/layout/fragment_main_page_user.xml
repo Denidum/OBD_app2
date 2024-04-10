@@ -30,34 +30,6 @@
             android:layout_gravity="center">
 
             <TextView
-                android:id="@+id/main_user_page_id_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginTop="40dp"
-                android:fontFamily="@font/inter_medium"
-                android:text="@string/main_user_page_str_id_label"
-                android:textColor="@color/gray"
-                android:textSize="20sp"
-                />
-
-            <TextView
-                android:id="@+id/main_user_page_id_textbox"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/box_for_edittext"
-                android:ems="10"
-                android:fontFamily="@font/inter_medium"
-                android:hint="@string/main_user_page_str_id"
-                android:paddingStart="7dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:textColor="@color/almostblack"
-                android:textColorHint="@color/gray_on_gray"
-                android:textSize="18sp" />
-            <TextView
                 android:id="@+id/main_user_page_login_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -116,7 +88,7 @@
                 android:background="@drawable/box_for_edittext"/>
 
             <Button
-                android:id="@+id/main_database_add_table_button"
+                android:id="@+id/main_user_page_change_pass_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
@@ -127,7 +99,7 @@
                 app:rippleColor="@color/gray_on_gray" />
 
             <Button
-                android:id="@+id/main_database_page_delete_table_button"
+                android:id="@+id/main_user_page_log_out_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"

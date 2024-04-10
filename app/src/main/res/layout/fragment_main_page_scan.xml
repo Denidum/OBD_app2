@@ -13,7 +13,7 @@
         android:layout_centerInParent="true">
 
             <Button
-                android:id="@+id/main_database_add_table_button"
+                android:id="@+id/main_scan_page_camera_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="250dp"
@@ -24,7 +24,7 @@
                 app:rippleColor="@color/gray_on_gray" />
 
             <Button
-                android:id="@+id/main_database_page_delete_table_button"
+                android:id="@+id/main_scan_page_import_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"

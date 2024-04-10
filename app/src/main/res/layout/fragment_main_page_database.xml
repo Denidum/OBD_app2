@@ -12,21 +12,22 @@
         android:orientation="vertical"
         android:paddingLeft="30dp"
         android:paddingRight="30dp">
+
         <TextView
-            android:id="@+id/main_gen_qr_page_label"
+            android:id="@+id/main_database_list_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="70dp"
-            android:fontFamily="@font/inter_bold"
-            android:text="@string/main_database_page_str_label"
+            android:fontFamily="@font/inter_medium"
+            android:text="@string/main_database_page_str_list_label"
             android:textColor="@color/gray"
-            android:textSize="23sp" />
+            android:textSize="20sp" />
 
         <ListView
             android:id="@+id/main_database_page_database_list"
             android:layout_width="wrap_content"
-            android:layout_height="400dp"
+            android:layout_height="300dp"
             android:layout_marginTop="20dp">
 
         </ListView>
@@ -39,18 +40,30 @@
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             android:backgroundTint="@color/gray"
-            android:text="@string/main_database_page_str_add_button"
+            android:text="@string/main_database_page_str_add_delete_data_button"
             android:textColor="@color/almostblack"
             android:textSize="20sp"
             app:rippleColor="@color/gray_on_gray" />
 
         <Button
-            android:id="@+id/main_database_page_delete_table_button"
+            android:id="@+id/main_database_page_redact_table_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:backgroundTint="@color/gray"
-            android:text="@string/main_database_page_str_delete_button"
+            android:text="@string/main_database_page_str_redact_data_button"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:textColor="@color/almostblack"
+            android:textSize="20sp"
+            app:rippleColor="@color/gray_on_gray" />
+        <Button
+            android:id="@+id/main_database_page_view_table_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/gray"
+            android:text="@string/main_database_page_str_view_data_button"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             android:textColor="@color/almostblack"

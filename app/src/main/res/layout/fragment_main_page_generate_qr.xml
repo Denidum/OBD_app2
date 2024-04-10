@@ -15,32 +15,22 @@
         android:layout_centerInParent="true">
 
         <TextView
-            android:id="@+id/main_gen_qr_page_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="70dp"
-            android:fontFamily="@font/inter_bold"
-            android:text="@string/main_gen_qr_page_str_label"
-            android:textColor="@color/gray"
-            android:textSize="23sp" />
-
-        <TextView
-            android:id="@+id/main_user_page_id_label"
+            android:id="@+id/main_gen_qr_spinner_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="70dp"
             android:fontFamily="@font/inter_medium"
             android:text="@string/main_gen_qr_page_str_tables_label"
             android:textColor="@color/gray"
             android:textSize="20sp" />
 
         <Spinner
-            android:id="@+id/spinner"
+            android:id="@+id/main_gen_qr_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="5dp"
+            android:layout_marginTop="20dp"
             android:paddingTop="2dp"
             android:paddingBottom="2dp" />
 
@@ -50,7 +40,7 @@
             android:orientation="vertical"
             android:layout_gravity="center">
         <Button
-            android:id="@+id/main_database_add_table_button"
+            android:id="@+id/main_gen_qr_page_choose_data_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
@@ -61,7 +51,7 @@
             app:rippleColor="@color/gray_on_gray" />
 
         <Button
-            android:id="@+id/main_database_page_delete_table_button"
+            android:id="@+id/main_gen_qr_page_list_created_qr_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
