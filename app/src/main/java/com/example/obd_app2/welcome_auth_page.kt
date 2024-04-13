@@ -7,14 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import com.chaquo.python.Python
+import com.chaquo.python.android.AndroidPlatform
 import com.example.obd_app2.interfaces.Welcome_page_interface
+import kotlinx.coroutines.newFixedThreadPoolContext
 
 class welcome_auth_page : Fragment() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -30,11 +32,15 @@ class welcome_auth_page : Fragment() {
 
         val myInterface: Welcome_page_interface = activity as Welcome_page_interface
 
+
+
         logInButton.setOnClickListener{
             var strLogin = loginEditText.text.toString()
             var strPass = passEditText.text.toString()
+
             myInterface.TransDataFromLogInToCheck(strLogin, strPass)
         }
+
         return v
     }
 

@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("com.chaquo.python")
 }
 
 android {
@@ -14,7 +15,37 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            // On Apple silicon, you can omit x86_64.
+            abiFilters += listOf("arm64-v8a", "x86_64")
+        }
+
+        flavorDimensions += "pyVersion"
+        productFlavors {
+            create("py38") { dimension = "pyVersion" }
+        }
+    }
+    chaquopy {
+        defaultConfig {
+                version = "3.8"
+                buildPython("C:/Users/Tanya/AppData/Local/Programs/Python/Python38/python.exe")
+            pip {
+                // A requirement specifier, with or without a version number:
+                //install("SQLAlchemy")
+
+            }
+        }
+        productFlavors {
+            getByName("py38") { version = "3.8" }
+        }
+        sourceSets {
+            getByName("main") {
+                srcDir("src/main/python")
+            }
+        }
     }
 
     buildTypes {
@@ -27,12 +58,12 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildToolsVersion = "34.0.0"
 }
 
 dependencies {

@@ -10,9 +10,12 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import com.chaquo.python.Python
+import com.chaquo.python.android.AndroidPlatform
 import com.example.obd_app2.interfaces.Welcome_page_interface
 
 class Welcome_page : AppCompatActivity(), Welcome_page_interface {
@@ -62,6 +65,9 @@ class Welcome_page : AppCompatActivity(), Welcome_page_interface {
                 changeButtonVisibility(findViewById(R.id.welcome_page_nav_next_button), View.VISIBLE)
             }
         }
+        if (! Python.isStarted()) {
+            Python.start(AndroidPlatform(this));
+        }
     }
 
     private fun changeButtonVisibility(b: LinearLayout, vis: Int){
@@ -81,12 +87,25 @@ class Welcome_page : AppCompatActivity(), Welcome_page_interface {
     }
 
     override fun TransDataFromLogInToCheck(strLogin: String, strPass: String) {
+        val py = Python.getInstance()
+        val module = py.getModule("bd")
+
         var strLoginTrim = strLogin.trim()
         var strPassTrim = strPass.trim()
+
+        val check = module["check_info_human"]
+        val a = check?.call(strLoginTrim, strPassTrim).toString()
+
         if(strLoginTrim == "" || strPassTrim == ""){
             Toast.makeText(this, "Some of fields aren't filled", Toast.LENGTH_SHORT).show()
         }
         else if(strLoginTrim == "admin" && strPassTrim == "0000"){
+            Toast.makeText(this, "You successfully entered your account", Toast.LENGTH_SHORT).show()
+            val intentVal = Intent(this, Main_page::class.java)
+            startActivity(intentVal)
+            finish()
+        }
+        else if(a=="Correct"){
             Toast.makeText(this, "You successfully entered your account", Toast.LENGTH_SHORT).show()
             val intentVal = Intent(this, Main_page::class.java)
             startActivity(intentVal)
@@ -98,4 +117,6 @@ class Welcome_page : AppCompatActivity(), Welcome_page_interface {
 
     }
 }
+
+
 
