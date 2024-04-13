@@ -1,6 +1,10 @@
 import sqlite3
+import os.path
 
-connect = sqlite3.connect('baza/list.db')
+package_dir = os.path.abspath(os.path.dirname(__file__))
+db_dir = os.path.join(package_dir, 'list.db')
+
+connect = sqlite3.connect(db_dir)
 cursor = connect.cursor()
 
 #Type
@@ -84,7 +88,7 @@ def insert_data_db(name_table, data_column, size_data_column, id_row=0):
     elif size_data_column==2:
         cursor.execute("INSERT INTO "+name_table+" VALUES(?,?,?);", data_column)
     elif size_data_column==3:
-        cursor.execute("INSERT INTO "+name_table+" VALUES(?,?,?,?);", data_column)
+        cursor.execute("INSERT INTO " + name_table + " VALUES(?,?,?,?);", data_column)
     elif size_data_column==4:
         cursor.execute("INSERT INTO "+name_table+" VALUES(?,?,?,?,?);", data_column)
     elif size_data_column==5:
@@ -92,6 +96,12 @@ def insert_data_db(name_table, data_column, size_data_column, id_row=0):
     elif size_data_column==6:
         cursor.execute("INSERT INTO "+name_table+" VALUES(?,?,?,?,?,?,?);", data_column)
     connect.commit()
+
+def count_id(name_table):
+    result = cursor.execute("SELECT * FROM "+name_table).fetchall()
+    for row in result:
+        count = row[0]
+    return count + 1
 
 #Винести всі дані з таблиці
 def select_all_data_db(name_table):
@@ -112,11 +122,11 @@ def select_data_db(name_table, id_row, number_column):
 
 #Спеціальна функція перевірки для таблиці авторизації(human_list)
 def check_info_human(name_human='', passw_human=''):
-    cursor.execute("SELECT * FROM human_list")
+    cursor.execute("SELECT * FROM sys_human_list")
     while True:
         next_row = cursor.fetchone()
         if next_row:
-            (id, login, passw) = next_row
+            (id, login, passw, em) = next_row
             if name_human == login and passw_human == passw:
                 return "Correct"
             if name_human == '' and passw_human == '':
