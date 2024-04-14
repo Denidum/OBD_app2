@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Main_page_list_of_created_qrs">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp">
+
+        <TextView
+            android:id="@+id/main_gen_qr_list_created_qr_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="70dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="@string/main_gen_qr_page_str_list_created_qr_label"
+            android:textColor="@color/gray"
+            android:textSize="23sp" />
+
+        <ListView
+            android:id="@+id/main_gen_qr_list_created_qr_table_list"
+            android:layout_width="wrap_content"
+            android:layout_height="500dp"
+            android:layout_marginTop="20dp">
+
+        </ListView>
+        <Button
+            android:id="@+id/main_gen_qr_page_list_created_qr_back_button"
+            app:rippleColor="@color/gray_on_gray"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="40dp"
+            android:backgroundTint="@color/gray"
+            android:text="@string/main_page_back_button"
+            android:textColor="@color/almostblack"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+</RelativeLayout>

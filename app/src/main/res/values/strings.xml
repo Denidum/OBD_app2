@@ -50,4 +50,20 @@
     <string name="main_gen_qr_page_str_data_button">Choose data</string>
     <string name="main_gen_qr_page_str_stored_button">Open list of created QR\'s</string>
 
+    <string name="main_gen_qr_page_str_list_created_qr_label">Recently created QR\'s</string>
+
+    <string name="main_gen_qr_page_str_choosing_data_label">Choose data from list</string>
+    <string name="main_gen_qr_page_str_choosing_data_button">Generate QR</string>
+
+    <string name="main_page_back_button">Back</string>
+
+    <string name="main_database_page_str_add_delete_add_data_button">Add data</string>
+    <string name="main_database_page_str_add_delete_delete_data_button">Delete chosen data</string>
+    <string name="main_database_str_add_delete_data_label">Choose data from list to delete</string>
+
+    <string name="main_database_page_str_redact_choosing_data_redact_data_button">Redact chosen data</string>
+    <string name="main_database_page_str_redact_choosing_data_label">Choose data from list to redact</string>
+
+    <string name="main_database_page_str_data_view">Data</string>
+
 </resources>
