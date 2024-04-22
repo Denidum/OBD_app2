@@ -7,7 +7,7 @@
     tools:context=".Main_page_home">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingLeft="30dp"
@@ -24,13 +24,32 @@
             android:textColor="@color/gray"
             android:textSize="23sp" />
 
-        <ListView
-            android:id="@+id/main_home_page_table_list"
-            android:layout_width="wrap_content"
-            android:layout_height="400dp"
-            android:layout_marginTop="20dp">
+        <View
+            android:id="@+id/divider_top"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/gray"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"/>
 
-        </ListView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/main_home_page_table_list"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_marginTop="5dp"
+            android:scrollbars="vertical">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <View
+            android:id="@+id/divider_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:background="@color/gray" />
 
         <Button
             android:id="@+id/main_home_page_add_table_button"
@@ -38,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="35dp"
             android:layout_marginRight="40dp"
             android:backgroundTint="@color/gray"
             android:text="@string/main_home_page_str_add_button"
