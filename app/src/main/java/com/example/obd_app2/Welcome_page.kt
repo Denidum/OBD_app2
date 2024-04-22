@@ -65,9 +65,6 @@ class Welcome_page : AppCompatActivity(), Welcome_page_interface {
                 changeButtonVisibility(findViewById(R.id.welcome_page_nav_next_button), View.VISIBLE)
             }
         }
-        if (! Python.isStarted()) {
-            Python.start(AndroidPlatform(this));
-        }
     }
 
     private fun changeButtonVisibility(b: LinearLayout, vis: Int){
@@ -87,6 +84,11 @@ class Welcome_page : AppCompatActivity(), Welcome_page_interface {
     }
 
     override fun TransDataFromLogInToCheck(strLogin: String, strPass: String) {
+
+        if (! Python.isStarted()) {
+            Python.start(AndroidPlatform(this));
+        }
+
         val py = Python.getInstance()
         val module = py.getModule("bd")
 
@@ -115,6 +117,41 @@ class Welcome_page : AppCompatActivity(), Welcome_page_interface {
             Toast.makeText(this, "Wrong login or password", Toast.LENGTH_SHORT).show()
         }
 
+    }
+
+    override fun TransDataFromLogInToAddPerson(strLogin: String, strPass: String, strEmail: String) {
+        if (! Python.isStarted()) {
+            Python.start(AndroidPlatform(this));
+        }
+
+        val py = Python.getInstance()
+        val module = py.getModule("bd")
+
+        var strLoginTrim = strLogin.trim()
+        var strPassTrim = strPass.trim()
+        var strEmailTrim = strEmail.trim()
+
+        val check = module["add_baza_human"]
+        val a = check?.call(strLoginTrim, strPassTrim, strEmailTrim).toString()
+
+        if(strLoginTrim == "" || strPassTrim == "" || strEmailTrim == ""){
+            Toast.makeText(this, "Some of fields aren't filled", Toast.LENGTH_SHORT).show()
+        }
+        else if(a=="Login"){
+            Toast.makeText(this, "Login is already in use", Toast.LENGTH_SHORT).show()
+        }
+        else if(a=="Pasww"){
+            Toast.makeText(this, "Password is already in use", Toast.LENGTH_SHORT).show()
+        }
+        else if(a=="Email"){
+            Toast.makeText(this, "Email is already in use", Toast.LENGTH_SHORT).show()
+        }
+        else if(a=="Correct"){
+            Toast.makeText(this, "You successfully add your account", Toast.LENGTH_SHORT).show()
+        }
+        else{
+            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+        }
     }
 }
 

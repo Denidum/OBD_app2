@@ -1,10 +1,14 @@
-import sqlite3
-import os.path
 
-package_dir = os.path.abspath(os.path.dirname(__file__))
-db_dir = os.path.join(package_dir, 'list.db')
+import mysql.connector
 
-connect = sqlite3.connect(db_dir)
+connect = mysql.connector.connect(
+    host="192.168.1.12",
+    user="boss",
+    password="PomeloGranat5",
+    database="qdms",
+    port=3306
+)
+
 cursor = connect.cursor()
 
 #Type
@@ -12,6 +16,7 @@ cursor = connect.cursor()
 #text-string
 
 #Спеціальна функція перевірки для таблиці авторизації(human_list)
+
 def check_info_human(name_human='', passw_human=''):
     cursor.execute("SELECT * FROM sys_human_list")
     while True:
@@ -29,11 +34,35 @@ def check_info_human(name_human='', passw_human=''):
             else:
                 pass
         else:
+            connect.commit()
             return "Wrong"
-
-def add_db_plus4(fon=" ", gd=" "):
-    cursor.execute(""" CREATE TABLE IF NOT EXISTS sys_human_list(id integer, login text, password text, email text) """)
-    data_name = [0, "Tanya", "1234", "example1@gmail.com"]  # Тестові дані
-    cursor.execute("INSERT INTO sys_human_list VALUES(?,?,?,?);", data_name)
+def count_id(name_table):
+    cursor.execute("SELECT * FROM "+name_table)
+    result = cursor.fetchall()
     connect.commit()
-    return "Correct"
+    for row in result:
+        count = row[0]
+    return count + 1
+
+def add_baza_human(name, pasww, email): #додати людину до списку людей
+    cursor.execute("SELECT * FROM sys_human_list")
+    while True:
+        next_row = cursor.fetchone()
+        if next_row:
+            (id, login, passw, em) = next_row
+            if name == login:
+                return "Login"
+            if passw== pasww:
+                return "Pasww"
+            if em == email:
+                return "Email"
+            else:
+                pass
+        else:
+            connect.commit()
+            count = count_id("sys_human_list")
+            data_name = [count, name, pasww, email]
+            cursor.execute("INSERT INTO sys_human_list (id, login, password, email) VALUES(%s,%s,%s,%s);", data_name)
+            connect.commit()
+            return "Correct"
+

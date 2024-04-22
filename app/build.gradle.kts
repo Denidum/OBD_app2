@@ -34,7 +34,7 @@ android {
                 buildPython("C:/Users/Tanya/AppData/Local/Programs/Python/Python38/python.exe")
             pip {
                 // A requirement specifier, with or without a version number:
-                //install("SQLAlchemy")
+                install("mysql-connector-python")
 
             }
         }
