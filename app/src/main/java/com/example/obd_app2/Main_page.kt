@@ -26,6 +26,7 @@ class Main_page : AppCompatActivity(), Main_user_to_main_act {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        userId = intent.getIntExtra("id", 0)
         val bnv: BottomNavigationView = findViewById(R.id.main_page_nav_menu)
         bnv.setOnApplyWindowInsetsListener(null)
         bnv.itemActiveIndicatorColor = getColorStateList(R.color.gray_on_gray)
@@ -37,7 +38,9 @@ class Main_page : AppCompatActivity(), Main_user_to_main_act {
             true
         }
     }
-
+    //override fun OnDestroy(){
+     //   super.onDestroy()
+    //}
     private fun replaceFragment(index: Int, way: Int){
         val fragmentManager = supportFragmentManager
         val fragmentTrans = fragmentManager.beginTransaction()
@@ -74,7 +77,9 @@ class Main_page : AppCompatActivity(), Main_user_to_main_act {
     }
 
     override fun intentDataFromMainToWelc(n: Int) {
-        val intentVal = Intent(this, Welcome_page::class.java)
+        val intentVal = Intent(this, Welcome_page::class.java).apply {
+            putExtra("id_reset", 1)
+        }
         startActivity(intentVal)
         finish()
     }

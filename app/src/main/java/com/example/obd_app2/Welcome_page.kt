@@ -1,6 +1,7 @@
 package com.example.obd_app2
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
@@ -17,6 +18,7 @@ import com.example.obd_app2.interfaces.Welcome_page_interface
 
 class Welcome_page : AppCompatActivity(), Welcome_page_interface {
     private var fragmentNumber: Int = 0
+    var pref: SharedPreferences? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -26,6 +28,18 @@ class Welcome_page : AppCompatActivity(), Welcome_page_interface {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        pref = getSharedPreferences("Table", MODE_PRIVATE)
+        var savedUserId = pref?.getInt("CurrIdUser", 0)!!
+        val resetUserId = intent.getIntExtra("id_reset", 0)
+        if(resetUserId == 1){
+             saveUserId(0)
+             savedUserId = pref?.getInt("CurrIdUser", 0)!!
+        }
+        if(savedUserId !=0){
+            intentToMain(savedUserId)
+        }
+
         val imagelogo: ImageView = findViewById(R.id.welcome_page_appBarTop_logo)
         imagelogo.visibility = View.INVISIBLE
         replaceFragment(welcome_main_page(), 0)
@@ -88,18 +102,29 @@ class Welcome_page : AppCompatActivity(), Welcome_page_interface {
         }
         else if(strLoginTrim == "admin" && strPassTrim == "0000"){
             Toast.makeText(this, "You successfully entered your account", Toast.LENGTH_SHORT).show()
-            val intentVal = Intent(this, Main_page::class.java).apply(){
-                var userId = 1
-                //ToDo: замінити значення 1 на результат функції на котліні/пайтоні, яка шукає id користувача за значенням змінної strLoginTrim
-                putExtra("id", userId)
-            }
-            startActivity(intentVal)
-            finish()
+            //ToDo: замінити значення 1 на результат функції на котліні/пайтоні, яка шукає id користувача за значенням змінної strLoginTrim
+            var userId = 1
+            saveUserId(userId)
+            intentToMain(userId)
         }
         else{
             Toast.makeText(this, "Wrong login or password", Toast.LENGTH_SHORT).show()
         }
 
     }
+
+    private fun saveUserId(id: Int){
+        val editor = pref?.edit()
+        editor?.putInt("CurrIdUser", id)
+        editor?.apply()
+    }
+    private fun intentToMain(userId: Int){
+        val intentVal = Intent(this, Main_page::class.java).apply(){
+            putExtra("id", userId)
+        }
+        startActivity(intentVal)
+        finish()
+    }
+
 }
 
