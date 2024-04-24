@@ -1,5 +1,6 @@
 package com.example.obd_app2
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -7,10 +8,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import com.example.obd_app2.interfaces.Main_user_to_main_act
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
-class Main_page : AppCompatActivity() {
+class Main_page : AppCompatActivity(), Main_user_to_main_act {
     private var userId: Int = 1
     private var currSelectedItem: Int = 2
     private val fragArray = arrayOf(Main_page_qr(), Main_page_database(), Main_page_home(), Main_page_scan(),Main_page_user())
@@ -69,5 +71,11 @@ class Main_page : AppCompatActivity() {
             }
             currSelectedItem = nextItemSelected
         }
+    }
+
+    override fun intentDataFromMainToWelc(n: Int) {
+        val intentVal = Intent(this, Welcome_page::class.java)
+        startActivity(intentVal)
+        finish()
     }
 }

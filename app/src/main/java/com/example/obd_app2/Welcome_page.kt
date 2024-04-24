@@ -88,7 +88,11 @@ class Welcome_page : AppCompatActivity(), Welcome_page_interface {
         }
         else if(strLoginTrim == "admin" && strPassTrim == "0000"){
             Toast.makeText(this, "You successfully entered your account", Toast.LENGTH_SHORT).show()
-            val intentVal = Intent(this, Main_page::class.java)
+            val intentVal = Intent(this, Main_page::class.java).apply(){
+                var userId = 1
+                //ToDo: замінити значення 1 на результат функції на котліні/пайтоні, яка шукає id користувача за значенням змінної strLoginTrim
+                putExtra("id", userId)
+            }
             startActivity(intentVal)
             finish()
         }
