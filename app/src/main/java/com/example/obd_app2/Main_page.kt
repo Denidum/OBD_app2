@@ -9,11 +9,10 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.example.obd_app2.interfaces.Main_user_to_main_act
-import com.example.obd_app2.interfaces.UserId_to_Main_page_frags
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
-class Main_page : AppCompatActivity(), Main_user_to_main_act, UserId_to_Main_page_frags {
+class Main_page : AppCompatActivity(), Main_user_to_main_act {
     private var userId: Int = 1
     private var currSelectedItem: Int = 2
     private val fragArray = arrayOf(Main_page_qr(), Main_page_database(), Main_page_home(), Main_page_scan(),Main_page_user())
@@ -68,17 +67,13 @@ class Main_page : AppCompatActivity(), Main_user_to_main_act, UserId_to_Main_pag
         if(nextItemSelected != currSelectedItem){
             if(nextItemSelected > currSelectedItem){
                 replaceFragment(nextItemSelected, 1)
+
             }
             else{
                 replaceFragment(nextItemSelected, -1)
             }
-
             currSelectedItem = nextItemSelected
         }
-    }
-
-    override public fun getUserId(): Int{
-        return userId
     }
 
     override fun intentDataFromMainToWelc(n: Int) {
