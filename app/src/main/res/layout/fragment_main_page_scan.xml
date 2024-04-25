@@ -13,23 +13,23 @@
         android:layout_centerInParent="true">
 
             <Button
-                android:id="@+id/main_scan_page_open_camera_button"
+                android:id="@+id/main_scan_page_camera_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="250dp"
                 android:backgroundTint="@color/gray"
-                android:text="@string/main_user_page_str_change_pass_button"
+                android:text="@string/main_import_qr_page_str_open_camera"
                 android:textColor="@color/almostblack"
                 android:textSize="20sp"
                 app:rippleColor="@color/gray_on_gray" />
 
             <Button
-                android:id="@+id/main_user_page_upload_from_storage"
+                android:id="@+id/main_scan_page_import_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/gray"
-                android:text="@string/main_user_page_str_log_out_button"
+                android:text="@string/main_import_qr_page_str_upload_from_storage"
                 android:textColor="@color/almostblack"
                 android:textSize="20sp"
                 app:rippleColor="@color/gray_on_gray" />

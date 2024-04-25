@@ -1,17 +1,23 @@
 package com.example.obd_app2
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import com.example.obd_app2.interfaces.Main_user_to_main_act
+import com.example.obd_app2.interfaces.UserId_to_Main_page_frags
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
-class Main_page : AppCompatActivity() {
-    private var currSelectedItem: Int = 2;
+class Main_page : AppCompatActivity(), Main_user_to_main_act, UserId_to_Main_page_frags {
+    private var userId: Int = 1
+    private var currSelectedItem: Int = 2
     private val fragArray = arrayOf(Main_page_qr(), Main_page_database(), Main_page_home(), Main_page_scan(),Main_page_user())
+    private val titlesArray = arrayOf(R.string.main_page_top_tool_bar_str_qr_gen, R.string.main_page_top_tool_bar_str_database, R.string.main_page_top_tool_bar_str_main, R.string.main_page_top_tool_bar_str_qr_scan, R.string.main_page_top_tool_bar_str_profile)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -21,6 +27,7 @@ class Main_page : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        userId = intent.getIntExtra("id", 0)
         val bnv: BottomNavigationView = findViewById(R.id.main_page_nav_menu)
         bnv.setOnApplyWindowInsetsListener(null)
         bnv.itemActiveIndicatorColor = getColorStateList(R.color.gray_on_gray)
@@ -28,10 +35,13 @@ class Main_page : AppCompatActivity() {
         bnv.selectedItemId = R.id.ic_home
         bnv.setOnItemSelectedListener{
             compareItemsSelected(it.itemId)
+            findViewById<TextView>(R.id.main_tool_bar_top_title).text = getString(titlesArray[currSelectedItem])
             true
         }
     }
-
+    //override fun OnDestroy(){
+     //   super.onDestroy()
+    //}
     private fun replaceFragment(index: Int, way: Int){
         val fragmentManager = supportFragmentManager
         val fragmentTrans = fragmentManager.beginTransaction()
@@ -58,12 +68,24 @@ class Main_page : AppCompatActivity() {
         if(nextItemSelected != currSelectedItem){
             if(nextItemSelected > currSelectedItem){
                 replaceFragment(nextItemSelected, 1)
-
             }
             else{
                 replaceFragment(nextItemSelected, -1)
             }
+
             currSelectedItem = nextItemSelected
         }
+    }
+
+    override public fun getUserId(): Int{
+        return userId
+    }
+
+    override fun intentDataFromMainToWelc(n: Int) {
+        val intentVal = Intent(this, Welcome_page::class.java).apply {
+            putExtra("id_reset", 1)
+        }
+        startActivity(intentVal)
+        finish()
     }
 }

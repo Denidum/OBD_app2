@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Main_page_home">
+    tools:context=".Main_page_database_add_delete_data">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -14,61 +14,60 @@
         android:paddingRight="30dp">
 
         <TextView
-            android:id="@+id/main_database_list_label"
+            android:id="@+id/main_database_add_delete_data_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="70dp"
-            android:fontFamily="@font/inter_medium"
-            android:text="@string/main_database_page_str_list_label"
+            android:fontFamily="@font/inter_bold"
+            android:text="@string/main_database_str_add_delete_data_label"
             android:textColor="@color/gray"
-            android:textSize="20sp" />
+            android:textSize="23sp" />
 
         <ListView
-            android:id="@+id/main_database_page_database_list"
+            android:id="@+id/main_database_add_delete_data_list"
             android:layout_width="wrap_content"
-            android:layout_height="300dp"
+            android:layout_height="350dp"
             android:layout_marginTop="20dp">
 
         </ListView>
 
         <Button
-            android:id="@+id/main_database_add_table_button"
+            android:id="@+id/main_database_add_delete_delete_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
             android:layout_marginTop="40dp"
-            android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             android:backgroundTint="@color/gray"
-            android:text="@string/main_database_page_str_add_delete_data_button"
+            android:text="@string/main_database_page_str_add_delete_delete_data_button"
             android:textColor="@color/almostblack"
             android:textSize="20sp"
             app:rippleColor="@color/gray_on_gray" />
 
         <Button
-            android:id="@+id/main_database_page_redact_table_button"
+            android:id="@+id/main_database_add_delete_add_button"
+            app:rippleColor="@color/gray_on_gray"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="@color/gray"
-            android:text="@string/main_database_page_str_redact_data_button"
             android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="40dp"
+            android:backgroundTint="@color/gray"
+            android:text="@string/main_database_page_str_add_delete_add_data_button"
             android:textColor="@color/almostblack"
-            android:textSize="20sp"
-            app:rippleColor="@color/gray_on_gray" />
+            android:textSize="20sp" />
         <Button
-            android:id="@+id/main_database_page_view_table_button"
+            android:id="@+id/main_database_add_delete_back_button"
+            app:rippleColor="@color/gray_on_gray"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="@color/gray"
-            android:text="@string/main_database_page_str_view_data_button"
             android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="40dp"
+            android:backgroundTint="@color/gray"
+            android:text="@string/main_page_back_button"
             android:textColor="@color/almostblack"
-            android:textSize="20sp"
-            app:rippleColor="@color/gray_on_gray" />
-
+            android:textSize="20sp" />
     </LinearLayout>
 </RelativeLayout>
