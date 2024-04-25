@@ -37,6 +37,7 @@ class Main_page : AppCompatActivity(), Main_user_to_main_act {
             findViewById<TextView>(R.id.main_tool_bar_top_title).text = getString(titlesArray[currSelectedItem])
             true
         }
+        replaceFragment(2, 0)
     }
     //override fun OnDestroy(){
      //   super.onDestroy()
@@ -50,8 +51,11 @@ class Main_page : AppCompatActivity(), Main_user_to_main_act {
         else if(way == -1){
             fragmentTrans.setCustomAnimations(R.anim.enter_from_left_to_right, R.anim.exit_from_left_to_right)
         }
-
-        fragmentTrans.replace(R.id.main_page_frag_view, fragArray[index])
+        val fragEx = fragArray[index]
+        val b = Bundle()
+        b.putInt("id", userId)
+        fragEx.arguments = b
+        fragmentTrans.replace(R.id.main_page_frag_view, fragEx)
         fragmentTrans.commit()
     }
 

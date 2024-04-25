@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class Main_page_home : Fragment() {
-
+    private var userId: Int? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -23,10 +23,14 @@ class Main_page_home : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_main_page_home, container, false)
+
+        val data = arguments
+        userId = data?.getInt("id")
+
         val itemList: RecyclerView = v.findViewById(R.id.main_home_page_table_list)
         val items = arrayListOf<Table>()
-        //Todo: вивести список завдяки функції, що шукає таблиці за
-        items.add(Table(1, "Test Table1", 4, "00:00 1th January 2024"))
+        //Todo: вивести список завдяки функції, що шукає таблиці за id користувача
+        items.add(Table(1, "Test Table1", 4, userId.toString()))
         items.add(Table(2, "Test Table2", 4, "00:00 1th January 2024"))
 
 
