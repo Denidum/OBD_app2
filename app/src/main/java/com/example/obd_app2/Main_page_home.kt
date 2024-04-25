@@ -25,11 +25,10 @@ class Main_page_home : Fragment() {
         val v = inflater.inflate(R.layout.fragment_main_page_home, container, false)
         val itemList: RecyclerView = v.findViewById(R.id.main_home_page_table_list)
         val items = arrayListOf<Table>()
-        items.add(Table(1, "Test Table1", arrayListOf("Id", "Name", "Phone number", "Address"), 4, "00:00 1th January 2024"))
-        items.add(Table(2, "Test Table2", arrayListOf("Id", "Name", "Phone number", "Address"), 4, "00:00 1th January 2024"))
-        items.add(Table(3, "Test Table3", arrayListOf("Id", "Name", "Phone number", "Address"), 4, "00:00 1th January 2024"))
-        items.add(Table(4, "Test Table4", arrayListOf("Id", "Name", "Phone number", "Address"), 4, "00:00 1th January 2024"))
-        items.add(Table(5, "Test Table5", arrayListOf("Id", "Name", "Phone number", "Address"), 4, "00:00 1th January 2024"))
+        //Todo: вивести список завдяки функції, що шукає таблиці за
+        items.add(Table(1, "Test Table1", 4, "00:00 1th January 2024"))
+        items.add(Table(2, "Test Table2", 4, "00:00 1th January 2024"))
+
 
         itemList.layoutManager = LinearLayoutManager(activity)
         itemList.adapter = activity?.let { TableListItemsAdapter(items, it) }
