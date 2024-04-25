@@ -54,7 +54,18 @@ def add_baza_human(name, pasww, email): #додати людину до спис
             return "Correct"
 
 def add_my_sgl():
-    cursor.execute(""" CREATE TABLE IF NOT EXISTS sys_human_list(id integer, login text, password text, email text) """)
+    cursor.execute(""" CREATE TABLE IF NOT EXISTS sys_human_table(id_user integer, id_name_table integer, number_row integer, time_created time) """)
+    connect.commit()
+
+def add_PK_colums():
+    cursor.execute("ALTER TABLE sys_human_list ADD CONSTRAINT idPK PRIMARY KEY (id)")
+    connect.commit()
+
+def del_PK_colums():
+    cursor.execute("ALTER TABLE sys_human_table DROP PRIMARY KEY;")
+    connect.commit()
+def add_FK_colums():
+    cursor.execute("ALTER TABLE sys_human_table ADD CONSTRAINT id_userFK FOREIGN KEY (id_user) REFERENCES sys_human_list(id);")
     connect.commit()
 
 #Видалити рядок
@@ -67,8 +78,11 @@ if __name__ == '__main__':
     #add_db_plus4()
     #add_baza_human()
     #add_my_sgl()
-    print(IPAddr)
+    #print(IPAddr)
     #print(add_baza_human("Rick", "1111", "ex@gmail.com"))
-    delete_mysql()
-
-
+    #delete_mysql()
+    #add_FK_colums()
+    #del_PK_colums()
+    #add_PK_colums()
+    #add_FK_colums()
+    print("correct")
