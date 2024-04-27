@@ -3,6 +3,7 @@ import mysql.connector
 
 connect = mysql.connector.connect(
     host="192.168.1.12",
+    #ost="192.168.0.105",
     user="boss",
     password="PomeloGranat5",
     database="qdms",
@@ -66,3 +67,59 @@ def add_baza_human(name, pasww, email): #додати людину до спис
             connect.commit()
             return "Correct"
 
+def db_plus_table(name_table, name1, type1, name2, type2, name3, type3):
+    cursor.execute(""" CREATE TABLE IF NOT EXISTS """+name_table+"""("""
+                   + name1 +""" """+ type1 + """, """
+                   + name2 +""" """+ type2 + """, """
+                   + name3 +""" """+ type3 + """) """)
+    connect.commit()
+    return "3"
+
+def db_plus_table_info(id_user, id_table, row, time,name):
+    data = [id_user, id_table, row, time, name]
+    cursor.execute("INSERT INTO sys_human_table (id_user, id_name_table, number_row, time_created, name_table) VALUES(%s,%s,%s,%s,%s);", data)
+    connect.commit()
+    return "correct"
+
+
+def info_table_name_table(id_table, id):
+    cursor.execute("SELECT * FROM sys_human_table where id_name_table = "+ str(id_table) + "and id_user = " + str(id))
+    next_row = cursor.fetchone()
+    if next_row is not None:
+        (id, id_table, row, time, name) = next_row
+        connect.commit()
+        return name
+    else:
+        return None
+
+def info_table_row(id_table, id):
+    cursor.execute("SELECT * FROM sys_human_table where id_name_table = "+ str(id_table) + "and id_user = " + str(id))
+    next_row = cursor.fetchone()
+    if next_row is not None:
+        (id, id_table, row, time, name) = next_row
+        connect.commit()
+        return row
+    else:
+        return None
+
+def info_table_time(id_table, id):
+    cursor.execute("SELECT * FROM sys_human_table where id_name_table = "+ str(id_table) + "and id_user = " + str(id))
+    next_row = cursor.fetchone()
+    if next_row is not None:
+        (id, id_table, row, time, name) = next_row
+        connect.commit()
+        return time
+    else:
+        return None
+
+def size_table(id):
+    cursor.execute("SELECT COUNT(id_name_table) FROM sys_human_table Where id_user=" + str(id))
+    count_row = cursor.fetchone()
+
+    if count_row is not None:
+        count = int(count_row[0])
+    else:
+        count = 0
+
+    connect.commit()
+    return count

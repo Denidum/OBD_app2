@@ -27,10 +27,7 @@ class TableListItemsAdapter(var items: List<Table>, var context: Context): Recyc
 
     override fun onBindViewHolder(holder: myViewHolder, position: Int) {
         holder.tableName.text = items[position].name
-        var strColList: String = items[position].col_count.toString()+" columns: "+items[position].col[0]
-        for(i in 1..<items[position].col_count step 1){
-            strColList = strColList + ", " + items[position].col[i]
-        }
+        var strColList: String = items[position].col_count.toString()+" columns: "
         holder.colList.text = strColList
         holder.time.text = items[position].creation_time
     }
