@@ -74,6 +74,39 @@ def delete_mysql():
     cursor.execute("DELETE FROM sys_human_list WHERE login = %s", name)
     connect.commit()
 
+def info_table(id):
+    cursor.execute("SELECT * FROM sys_human_list where id = "+ str(id))
+    next_row = cursor.fetchone()
+    connect.commit()
+    return next_row
+
+def add_colums():
+    cursor.execute("ALTER TABLE sys_human_table ADD name_table text")
+    connect.commit()
+
+def alter_colums():
+    cursor.execute("ALTER TABLE sys_human_table MODIFY time_created text")
+    connect.commit()
+
+#Рахує рядки
+def size_table():
+    cursor.execute("SELECT COUNT(login) FROM sys_human_list")
+    count= cursor.fetchone()
+    connect.commit()
+    return int(count[0])
+
+def size_table(id):
+    cursor.execute("SELECT COUNT(id_name_table) FROM sys_human_table Where id_user=" + str(id))
+    count_row = cursor.fetchone()
+
+    if count_row is not None:
+        count = int(count_row[0])
+    else:
+        count = 0
+
+    connect.commit()
+    return count
+
 if __name__ == '__main__':
     #add_db_plus4()
     #add_baza_human()
@@ -85,4 +118,4 @@ if __name__ == '__main__':
     #del_PK_colums()
     #add_PK_colums()
     #add_FK_colums()
-    print("correct")
+    print(size_table(0))
