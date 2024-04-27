@@ -1,6 +1,7 @@
 package com.example.obd_app2
 
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -16,44 +17,6 @@ import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
 
 class Main_page_scan : Fragment() {
-    private val v: View? = null
-    private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()){
-        isGranted: Boolean ->
-        if(isGranted){
-            showCamera()
-        }
-        else{
-
-        }
-    }
-
-    private val scanLauncher = registerForActivityResult(ScanContract()){
-        result: ScanIntentResult ->
-        run {
-            if (result.contents == null) {
-                Toast.makeText(context, "Cancelled", Toast.LENGTH_SHORT).show()
-            } else {
-                setResult(result.contents)
-            }
-        }
-    }
-
-    private fun setResult(str: String) {
-    //Todo: добавити функцію дешифрування + функцію переходу на фрагмент, де виводяться дані
-        Toast.makeText(context, str, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun showCamera() {
-        val options = ScanOptions()
-        options.setDesiredBarcodeFormats(ScanOptions.QR_CODE)
-        options.setPrompt("test prompt")
-        options.setCameraId(0)
-        options.setBeepEnabled(false)
-        options.setBarcodeImageEnabled(true)
-        options.setOrientationLocked(true)
-
-        scanLauncher.launch(options)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,24 +29,15 @@ class Main_page_scan : Fragment() {
     ): View? {
         val v = inflater.inflate(R.layout.fragment_main_page_scan, container, false)
         val cameraButton: Button = v.findViewById(R.id.main_scan_page_camera_button)
+        val data = arguments
+        val userId = data?.getInt("id")
         cameraButton.setOnClickListener{
-            checkPermissionCamera(v.context)
+            val intent = Intent(activity, Scan_page::class.java).apply {
+                putExtra("id", userId)
+            }
+            startActivity(intent)
         }
         return v
     }
-
-    private fun checkPermissionCamera(context: Context) {
-        if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
-            showCamera()
-        }
-        else if (shouldShowRequestPermissionRationale(android.Manifest.permission.CAMERA)){
-            Toast.makeText(context, "CAMERA permission required", Toast.LENGTH_SHORT).show()
-        }
-        else{
-            requestPermissionLauncher.launch(android.Manifest.permission.CAMERA)
-        }
-    }
-
-
 
 }
