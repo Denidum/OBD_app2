@@ -8,15 +8,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import com.example.obd_app2.interfaces.Main_to_secondary_frags
 import com.example.obd_app2.interfaces.Main_user_to_main_act
-import com.example.obd_app2.interfaces.UserId_to_Main_page_frags
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
-class Main_page : AppCompatActivity(), Main_user_to_main_act, UserId_to_Main_page_frags {
+class Main_page : AppCompatActivity(), Main_user_to_main_act, Main_to_secondary_frags {
     private var userId: Int = 1
     private var currSelectedItem: Int = 2
     private val fragArray = arrayOf(Main_page_qr(), Main_page_database(), Main_page_home(), Main_page_scan(),Main_page_user())
+    //private val databaseFragArray = arrayOf(Main_page_database_add_delete_data(),
+    //    Main_page_database_redact_data_choosing(), Main_page_database_data_view())
     private val titlesArray = arrayOf(R.string.main_page_top_tool_bar_str_qr_gen, R.string.main_page_top_tool_bar_str_database, R.string.main_page_top_tool_bar_str_main, R.string.main_page_top_tool_bar_str_qr_scan, R.string.main_page_top_tool_bar_str_profile)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,11 +40,12 @@ class Main_page : AppCompatActivity(), Main_user_to_main_act, UserId_to_Main_pag
             findViewById<TextView>(R.id.main_tool_bar_top_title).text = getString(titlesArray[currSelectedItem])
             true
         }
+        replaceFragment(fragArray[2], 0)
     }
     //override fun OnDestroy(){
      //   super.onDestroy()
     //}
-    private fun replaceFragment(index: Int, way: Int){
+    private fun replaceFragment(frag: Fragment, way: Int){
         val fragmentManager = supportFragmentManager
         val fragmentTrans = fragmentManager.beginTransaction()
         if(way == 1){
@@ -51,8 +54,11 @@ class Main_page : AppCompatActivity(), Main_user_to_main_act, UserId_to_Main_pag
         else if(way == -1){
             fragmentTrans.setCustomAnimations(R.anim.enter_from_left_to_right, R.anim.exit_from_left_to_right)
         }
-
-        fragmentTrans.replace(R.id.main_page_frag_view, fragArray[index])
+        val fragEx = frag
+        val b = Bundle()
+        b.putInt("id", userId)
+        fragEx.arguments = b
+        fragmentTrans.replace(R.id.main_page_frag_view, fragEx)
         fragmentTrans.commit()
     }
 
@@ -67,18 +73,14 @@ class Main_page : AppCompatActivity(), Main_user_to_main_act, UserId_to_Main_pag
         }
         if(nextItemSelected != currSelectedItem){
             if(nextItemSelected > currSelectedItem){
-                replaceFragment(nextItemSelected, 1)
+                replaceFragment(fragArray[nextItemSelected], 1)
+
             }
             else{
-                replaceFragment(nextItemSelected, -1)
+                replaceFragment(fragArray[nextItemSelected], -1)
             }
-
             currSelectedItem = nextItemSelected
         }
-    }
-
-    override public fun getUserId(): Int{
-        return userId
     }
 
     override fun intentDataFromMainToWelc(n: Int) {
@@ -87,5 +89,9 @@ class Main_page : AppCompatActivity(), Main_user_to_main_act, UserId_to_Main_pag
         }
         startActivity(intentVal)
         finish()
+    }
+
+    override fun passDataToMainToReplaceFrags(frag: Fragment, way: Int) {
+        replaceFragment(frag, way)
     }
 }

@@ -4,17 +4,20 @@ import mysql.connector
 
 try:
     connect = mysql.connector.connect(
-        host="192.168.1.12",
-        user="boss",
-        password="PomeloGranat5",
-        database="qdms",
-        port=3306
+        #host="192.168.1.12",
+        host="192.168.1.105",
+        user="client",
+        password="KillJoy98",
+        database="qdms"
     )
+    i=1
 except:
     package_dir = os.path.abspath(os.path.dirname(__file__))
     db_dir = os.path.join(package_dir, 'list.db')
 
     connect = sqlite3.connect(db_dir)
+    i=0
+
 cursor = connect.cursor()
 
 #Type
@@ -65,10 +68,11 @@ def add_baza_human(name, pasww, email): #додати людину до спис
             else:
                 pass
         else:
-            connect.commit()
-            count = count_id("sys_human_list")
-            data_name = [count, name, pasww, email]
-            cursor.execute("INSERT INTO sys_human_list (id, login, password, email) VALUES(%s,%s,%s,%s);", data_name)
+            data_name = [count_id("sys_human_list"), name, pasww, email]
+            if i==1:
+                cursor.execute("INSERT INTO sys_human_list (id, login, password, email) VALUES(%s,%s,%s,%s);", data_name)
+            else:
+                cursor.execute("INSERT INTO sys_human_list VALUES(?,?,?,?);", data_name)
             connect.commit()
             return "Correct"
 
@@ -82,7 +86,10 @@ def db_plus_table(name_table, name1, type1, name2, type2, name3, type3):
 
 def db_plus_table_info(id_user, id_table, row, time,name):
     data = [id_user, id_table, row, time, name]
-    cursor.execute("INSERT INTO sys_human_table (id_user, id_name_table, number_row, time_created, name_table) VALUES(%s,%s,%s,%s,%s);", data)
+    if i==1:
+        cursor.execute("INSERT INTO sys_human_table (id_user, id_name_table, number_row, time_created, name_table) VALUES(%s,%s,%s,%s,%s);", data)
+    else:
+        cursor.execute("INSERT INTO sys_human_table VALUES(?,?,?,?,?);",data)
     connect.commit()
     return "correct"
 
@@ -125,6 +132,5 @@ def size_table(id):
         count = int(count_row[0])
     else:
         count = 0
-
     connect.commit()
     return count

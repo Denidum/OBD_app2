@@ -33,7 +33,7 @@
         </ListView>
 
         <Button
-            android:id="@+id/main_database_add_table_button"
+            android:id="@+id/main_database_page_add_del_data_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"

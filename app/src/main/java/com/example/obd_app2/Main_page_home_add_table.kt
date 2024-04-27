@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import com.chaquo.python.Python
 import com.chaquo.python.android.AndroidPlatform
-import com.example.obd_app2.interfaces.UserId_to_Main_page_frags
 import com.example.obd_app2.interfaces.Welcome_page_interface
 
 
