@@ -1,15 +1,20 @@
-
+import sqlite3
+import os.path
 import mysql.connector
 
-connect = mysql.connector.connect(
-    host="192.168.1.12",
-    #ost="192.168.0.105",
-    user="boss",
-    password="PomeloGranat5",
-    database="qdms",
-    port=3306
-)
+try:
+    connect = mysql.connector.connect(
+        host="192.168.1.12",
+        user="boss",
+        password="PomeloGranat5",
+        database="qdms",
+        port=3306
+    )
+except:
+    package_dir = os.path.abspath(os.path.dirname(__file__))
+    db_dir = os.path.join(package_dir, 'list.db')
 
+    connect = sqlite3.connect(db_dir)
 cursor = connect.cursor()
 
 #Type

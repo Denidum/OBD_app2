@@ -57,7 +57,7 @@ class Main_page_home : Fragment() {
         for(i in 0..Integer.parseInt(checkSizeTable?.call(UserId).toString())-1){
             items.add(Table(i, checkIdTable?.call(UserId, i).toString(), Integer.parseInt(checkRow?.call(UserId, i).toString()), checkTime?.call(UserId, i).toString()))
         }
-
+            //Todo: add table, but after crack
         logAddTableButton.setOnClickListener{
             val check = module["db_plus_table"]
             val checkInfo = module["db_plus_table_info"]
