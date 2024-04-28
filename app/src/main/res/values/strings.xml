@@ -65,4 +65,14 @@
 
     <string name="main_database_page_str_data_view">Data</string>
 
+    <string name="main_home_add_table_page_str_label">Enter data about new table</string>
+    <string name="main_home_add_table_page_str_table_name_label">Table name:</string>
+    <string name="main_home_add_table_page_str_enter_table_name">Enter table name</string>
+    <string name="main_home_add_table_page_str_columns_list_label">Table columns:</string>
+    <string name="main_home_add_table_page_str_button">Add table</string>
+
+    <string name="style_add_delete_column_item_str_name_label">Column name:</string>
+    <string name="style_add_delete_column_item_str_enter_name">Enter column name</string>
+    <string name="style_add_delete_column_item_str_data_type_label">Data type:</string>
+    <string name="style_spinner_data_type_item_str">Choose type of data</string>
 </resources>
