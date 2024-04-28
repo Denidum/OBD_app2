@@ -115,18 +115,13 @@ class Welcome_page : AppCompatActivity(), Welcome_page_interface {
         if(strLoginTrim == "" || strPassTrim == ""){
             Toast.makeText(this, "Some of fields aren't filled", Toast.LENGTH_SHORT).show()
         }
-        else if(strLoginTrim == "admin" && strPassTrim == "0000"){
-            Toast.makeText(this, "You successfully entered your account", Toast.LENGTH_SHORT).show()
-            //ToDo: замінити значення 1 на результат функції на котліні/пайтоні, яка шукає id користувача за значенням змінної strLoginTrim
-            var userId = 1
-            saveUserId(userId)
-            intentToMain(userId)
-        }
         else if(a=="Correct"){
             Toast.makeText(this, "You successfully entered your account", Toast.LENGTH_SHORT).show()
-            val intentVal = Intent(this, Main_page::class.java)
-            startActivity(intentVal)
-            finish()
+            val checkId = module["check_id_user"]
+            val userId = Integer.parseInt(checkId?.call(strLoginTrim).toString())
+
+            saveUserId(userId)
+            intentToMain(userId)
         }
         else{
             Toast.makeText(this, "Wrong login or password", Toast.LENGTH_SHORT).show()

@@ -49,7 +49,7 @@ class Main_page_home : Fragment() {
         val checkSizeTable = module["size_table"]
         val checkTime = module["info_table_time"]
         val checkRow = module["info_table_row"]
-        val checkIdTable = module["info_table_id_table"]
+        val checkIdTable = module["info_table_name_table"]
 
         for(i in 0..Integer.parseInt(checkSizeTable?.call(userId).toString())-1){
             items.add(Table(i, checkIdTable?.call(userId, i).toString(), Integer.parseInt(checkRow?.call(userId, i).toString()), checkTime?.call(userId, i).toString()))

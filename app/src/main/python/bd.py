@@ -4,8 +4,7 @@ import mysql.connector
 
 try:
     connect = mysql.connector.connect(
-        #host="192.168.1.12",
-        host="192.168.1.105",
+        host="192.168.1.12",
         user="client",
         password="KillJoy98",
         database="qdms"
@@ -27,23 +26,23 @@ cursor = connect.cursor()
 #Спеціальна функція перевірки для таблиці авторизації(human_list)
 
 def check_info_human(name_human='', passw_human=''):
-    cursor.execute("SELECT * FROM sys_human_list")
-    while True:
-        next_row = cursor.fetchone()
-        if next_row:
-            (id, login, passw, em) = next_row
-            if name_human == login and passw_human == passw:
-                return "Correct"
-            if name_human == '' and passw_human == '':
-                return "Enter something"
-            if name_human == '':
-                return "Enter login"
-            if passw_human == '':
-                return "Enter password"
-            else:
-                pass
+    if i==1:
+        cursor.execute("SELECT * FROM sys_human_list where login = %s and password = %s", (name_human, passw_human))
+    else:
+        cursor.execute("SELECT * FROM sys_human_list where login = ? and password = ?", (name_human, passw_human))
+    next_row = cursor.fetchone()
+    connect.commit()
+    if next_row:
+        (id, login, passw, em) = next_row
+        if name_human == login and passw_human == passw:
+            return "Correct"
+        if name_human == '' and passw_human == '':
+            return "Enter something"
+        if name_human == '':
+            return "Enter login"
+        if passw_human == '':
+            return "Enter password"
         else:
-            connect.commit()
             return "Wrong"
 def count_id(name_table):
     cursor.execute("SELECT * FROM "+name_table)
@@ -60,10 +59,13 @@ def add_baza_human(name, pasww, email): #додати людину до спис
         if next_row:
             (id, login, passw, em) = next_row
             if name == login:
+                connect.commit()
                 return "Login"
             if passw== pasww:
+                connect.commit()
                 return "Pasww"
             if em == email:
+                connect.commit()
                 return "Email"
             else:
                 pass
@@ -75,6 +77,20 @@ def add_baza_human(name, pasww, email): #додати людину до спис
                 cursor.execute("INSERT INTO sys_human_list VALUES(?,?,?,?);", data_name)
             connect.commit()
             return "Correct"
+
+def check_id_user(name_user):
+    if i == 1:
+        cursor.execute("SELECT * FROM sys_human_list WHERE login = %s", (name_user,))
+    else:
+        cursor.execute("SELECT * FROM sys_human_list WHERE login = ?", (name_user,))
+    next_row = cursor.fetchone()
+    connect.commit()
+    if next_row is not None:
+        (id, login, passw, em) = next_row 
+        return id
+    else:
+        return None
+
 
 def db_plus_table(name_table, name1, type1, name2, type2, name3, type3):
     cursor.execute(""" CREATE TABLE IF NOT EXISTS """+name_table+"""("""
@@ -95,7 +111,11 @@ def db_plus_table_info(id_user, id_table, row, time,name):
 
 
 def info_table_name_table(id_table, id):
-    cursor.execute("SELECT * FROM sys_human_table where id_name_table = "+ str(id_table) + "and id_user = " + str(id))
+    if i==1:
+        cursor.execute("SELECT * FROM sys_human_table where id_name_table = %s and id_user = %s",(id_table,id))
+    else:
+        cursor.execute("SELECT * FROM sys_human_table WHERE id_name_table = ? AND id_user = ?",
+                       (id_table, id))
     next_row = cursor.fetchone()
     if next_row is not None:
         (id, id_table, row, time, name) = next_row
@@ -105,7 +125,11 @@ def info_table_name_table(id_table, id):
         return None
 
 def info_table_row(id_table, id):
-    cursor.execute("SELECT * FROM sys_human_table where id_name_table = "+ str(id_table) + "and id_user = " + str(id))
+    if i==1:
+        cursor.execute("SELECT * FROM sys_human_table where id_name_table = %s and id_user = %s",(id_table,id))
+    else:
+        cursor.execute("SELECT * FROM sys_human_table WHERE id_name_table = ? AND id_user = ?",
+                       (id_table, id))
     next_row = cursor.fetchone()
     if next_row is not None:
         (id, id_table, row, time, name) = next_row
@@ -115,7 +139,11 @@ def info_table_row(id_table, id):
         return None
 
 def info_table_time(id_table, id):
-    cursor.execute("SELECT * FROM sys_human_table where id_name_table = "+ str(id_table) + "and id_user = " + str(id))
+    if i==1:
+        cursor.execute("SELECT * FROM sys_human_table where id_name_table = %s and id_user = %s",(id_table,id))
+    else:
+        cursor.execute("SELECT * FROM sys_human_table WHERE id_name_table = ? AND id_user = ?",
+                       (id_table, id))
     next_row = cursor.fetchone()
     if next_row is not None:
         (id, id_table, row, time, name) = next_row
@@ -125,9 +153,11 @@ def info_table_time(id_table, id):
         return None
 
 def size_table(id):
-    cursor.execute("SELECT COUNT(id_name_table) FROM sys_human_table Where id_user=" + str(id))
+    if i==1:
+        cursor.execute("SELECT COUNT(id_name_table) FROM sys_human_table Where id_user= %s",(id,))
+    else:
+        cursor.execute("SELECT COUNT(id_name_table) FROM sys_human_table Where id_user='{}'".format(id, ))
     count_row = cursor.fetchone()
-
     if count_row is not None:
         count = int(count_row[0])
     else:
