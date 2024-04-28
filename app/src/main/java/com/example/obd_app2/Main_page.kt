@@ -2,7 +2,9 @@ package com.example.obd_app2
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -29,22 +31,31 @@ class Main_page : AppCompatActivity(), Main_user_to_main_act, Main_to_secondary_
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        userId = intent.getIntExtra("id", 0)
         val bnv: BottomNavigationView = findViewById(R.id.main_page_nav_menu)
         bnv.setOnApplyWindowInsetsListener(null)
         bnv.itemActiveIndicatorColor = getColorStateList(R.color.gray_on_gray)
         bnv.setPadding(0,0,0,0)
         bnv.selectedItemId = R.id.ic_home
+        replaceFragment(fragArray[2], 0)
+        val scanData = intent.getStringExtra("dataScan")
+        if(scanData == "0"){
+            bnv.selectedItemId = R.id.ic_scan
+            currSelectedItem = 3
+            replaceFragment(fragArray[currSelectedItem], 0)
+            Toast.makeText(this, "Scanning was cancelled", Toast.LENGTH_SHORT).show()
+        }
+        else if(scanData!=null){
+            Toast.makeText(this, "Scan data: $scanData", Toast.LENGTH_SHORT).show()
+        }
+        userId = intent.getIntExtra("id", 0)
+
         bnv.setOnItemSelectedListener{
             compareItemsSelected(it.itemId)
             findViewById<TextView>(R.id.main_tool_bar_top_title).text = getString(titlesArray[currSelectedItem])
             true
         }
-        replaceFragment(fragArray[2], 0)
     }
-    //override fun OnDestroy(){
-     //   super.onDestroy()
-    //}
+
     private fun replaceFragment(frag: Fragment, way: Int){
         val fragmentManager = supportFragmentManager
         val fragmentTrans = fragmentManager.beginTransaction()
