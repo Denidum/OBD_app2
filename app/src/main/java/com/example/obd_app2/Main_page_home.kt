@@ -35,8 +35,6 @@ class Main_page_home : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_main_page_home, container, false)
-        val myInterface: Main_to_secondary_frags = activity as Main_to_secondary_frags
-        val logAddTableButton: Button = v.findViewById(R.id.main_home_page_add_table_button)
 
         val addTableBtn: Button = v.findViewById(R.id.main_home_page_add_table_button)
 
@@ -55,20 +53,24 @@ class Main_page_home : Fragment() {
         val checkTime = module["info_table_time"]
         val checkRow = module["info_table_row"]
         val checkIdTable = module["info_table_name_table"]
+        val a = arrayListOf<Table>()
 
         for(i in 0..Integer.parseInt(checkSizeTable?.call(userId).toString())-1){
-            items.add(Table(i, checkIdTable?.call(userId, i).toString(), Integer.parseInt(checkRow?.call(userId, i).toString()), checkTime?.call(userId, i).toString()))
+            a.add(Table(i, checkIdTable?.call(userId, i).toString(), Integer.parseInt(checkRow?.call(userId, i).toString()), checkTime?.call(userId, i).toString()))
         }
-
-        logAddTableButton.setOnClickListener{
+        items.addAll(a.filterNotNull())
+        //logAddTableButton.setOnClickListener{
             //val check = module["db_plus_table"]
             //val checkInfo = module["db_plus_table_info"]
             //val row = check?.call("Test", "testCol0", "text", "testCol1", "text", "testCol2", "text").toString()
             //checkInfo?.call(userId, checkSizeTable?.call(userId).toString(),Integer.parseInt(row),LocalDateTime.now().toString(), "Test")
-        }
+        //}
 
         itemList.layoutManager = LinearLayoutManager(activity)
         itemList.adapter = activity?.let { TableListItemsAdapter(items, it) }
+
+        val myInterface: Main_to_secondary_frags = activity as Main_to_secondary_frags
+
         addTableBtn.setOnClickListener {
             if(items.size <5) {
                 myInterface.passDataToMainToReplaceFrags(Main_page_home_add_table(), 1)

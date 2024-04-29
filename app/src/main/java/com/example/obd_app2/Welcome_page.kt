@@ -167,6 +167,7 @@ class Welcome_page : AppCompatActivity(), Welcome_page_interface {
         val editor = pref?.edit()
         editor?.putInt("CurrIdUser", id)
         editor?.apply()
+
     }
     private fun intentToMain(userId: Int){
         val intentVal = Intent(this, Main_page::class.java).apply(){

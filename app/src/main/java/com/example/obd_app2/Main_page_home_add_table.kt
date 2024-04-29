@@ -10,9 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import com.chaquo.python.Python
-import com.chaquo.python.android.AndroidPlatform
-import com.example.obd_app2.interfaces.Welcome_page_interface
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
@@ -39,7 +36,6 @@ class Main_page_home_add_table : Fragment() {
             savedInstanceState: Bundle?
         ): View? {
 
-            return inflater.inflate(R.layout.fragment_main_page_home_add_table, container, false)
             // Inflate the layout for this fragment
             val v = inflater.inflate(R.layout.fragment_main_page_home_add_table, container, false)
 
@@ -91,7 +87,7 @@ class Main_page_home_add_table : Fragment() {
 
             addTableBtn.setOnClickListener {
                 var isCreateTableSucc = 0
-                var tableName = tableNameEditText.text.toString().trim()
+                val tableName = tableNameEditText.text.toString().trim()
                 if (checkIfEmpty(tableName)) {
                     isCreateTableSucc = 1
                     Toast.makeText(context, "Table name must be filled", Toast.LENGTH_SHORT)
@@ -102,11 +98,11 @@ class Main_page_home_add_table : Fragment() {
                     Toast.makeText(context, "Table name must be unique", Toast.LENGTH_SHORT)
                         .show()
                 }
-                var listToCreateColName = ArrayList<String>()
-                var listToCreateColType = ArrayList<String>()
+                val listToCreateColName = ArrayList<String>()
+                val listToCreateColType = ArrayList<String>()
                 if (isCreateTableSucc == 0) {
                     for (i in 0..<items.size step 1) {
-                        var strName = columnNameList[i].trim()
+                        val strName = columnNameList[i].trim()
                         if (checkIfEmpty(strName)) {
                             Toast.makeText(context, "All field must be filled", Toast.LENGTH_SHORT)
                                 .show()
@@ -161,7 +157,7 @@ class Main_page_home_add_table : Fragment() {
         }
 
         private fun checkIfUniq(list: ArrayList<String>, str: String, index: Int): Boolean {
-            var modList = ArrayList<String>()
+            val modList = ArrayList<String>()
             modList.addAll(list.filterNotNull())
             modList.removeAt(index)
             return modList.contains(str)

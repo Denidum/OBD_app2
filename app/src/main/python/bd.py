@@ -12,7 +12,7 @@ try:
     i=1
 except:
     package_dir = os.path.abspath(os.path.dirname(__file__))
-    db_dir = os.path.join(package_dir, 'list.sqlite')
+    db_dir = os.path.join(package_dir, 'list.db')
 
     connect = sqlite3.connect(db_dir)
     i=0
