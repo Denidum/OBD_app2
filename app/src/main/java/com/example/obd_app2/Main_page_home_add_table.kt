@@ -17,16 +17,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.obd_app2.interfaces.EditTextChangeListener
 import com.example.obd_app2.interfaces.Main_to_secondary_frags
-    class Main_page_home_add_table : Fragment(), EditTextChangeListener {
-        var UserId: Int? = null
-        private val columnNameList = arrayListOf<String>("", "", "", "", "")
-        private val columnDataType = arrayListOf<String>("", "", "", "", "")
 
-        override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
+class Main_page_home_add_table : Fragment(), EditTextChangeListener {
+    var UserId: Int? = null
+    private val columnNameList = arrayListOf<String>("","","","","")
+    private val columnDataType = arrayListOf<String>("","","","","")
 
-        }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
+    }
         override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
