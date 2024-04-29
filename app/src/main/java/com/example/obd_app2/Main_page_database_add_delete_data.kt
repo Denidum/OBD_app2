@@ -1,5 +1,6 @@
 package com.example.obd_app2
 
+import Table_or_data_classes.Table
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,7 +12,8 @@ import com.example.obd_app2.interfaces.Main_user_to_main_act
 
 
 class Main_page_database_add_delete_data : Fragment() {
-
+    private var userId: Int? = null
+    private var tableId: Int? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -27,6 +29,11 @@ class Main_page_database_add_delete_data : Fragment() {
             container,
             false
         )
+        val data = arguments
+        //достається id користувача
+        userId = data?.getInt("id")
+        //достається id таблиці, з якою працюємо
+        tableId = data?.getInt("tableId")
 
         val backBtn = v.findViewById<Button>(R.id.main_database_add_delete_back_button)
         val myInterface: Main_to_secondary_frags = activity as Main_to_secondary_frags

@@ -1,13 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Main_page_home_add_table">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        >
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/main_home_add_table_page_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="@string/main_home_add_table_page_str_label"
+            android:textColor="@color/gray"
+            android:textSize="23sp" />
+
+        <TextView
+            android:id="@+id/main_home_add_table_page_name_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="@string/main_home_add_table_page_str_table_name_label"
+            android:textColor="@color/gray"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/main_home_add_table_page_name_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/box_for_edittext"
+            android:ems="10"
+            android:fontFamily="@font/inter_medium"
+            android:hint="@string/main_home_add_table_page_str_enter_table_name"
+            android:paddingStart="7dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textColor="@color/almostblack"
+            android:textColorHint="@color/gray_on_gray"
+            android:textSize="18sp" />
+        <TextView
+            android:id="@+id/main_home_add_table_page_columns_list_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="@string/main_home_add_table_page_str_columns_list_label"
+            android:textColor="@color/gray"
+            android:textSize="20sp" />
+        <View
+            android:id="@+id/divider_top"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/gray"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/main_home_add_table_page_columns_list"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginTop="5dp">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <View
+            android:id="@+id/divider_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/gray"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp">
+
+            <ImageButton
+                android:id="@+id/add_column"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="#00FFFFFF"
+                android:scaleType="fitCenter"
+                android:src="@drawable/add_column"
+                app:tint="@color/gray"
+                />
+
+            <View
+                android:id="@+id/the_great_divider"
+                android:layout_width="80dp"
+                android:layout_height="50dp" />
+
+            <ImageButton
+                android:id="@+id/remove_column"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="#00FFFFFF"
+                android:scaleType="fitCenter"
+                android:src="@drawable/remove_column"
+                app:tint="@color/gray" />
+        </LinearLayout>
+        <Button
+            android:id="@+id/main_home_add_table_page_add_table_button"
+            app:rippleColor="@color/gray_on_gray"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="40dp"
+            android:backgroundTint="@color/gray"
+            android:text="@string/main_home_add_table_page_str_button"
+            android:textColor="@color/almostblack"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/main_home_add_table_page_back_button"
+            app:rippleColor="@color/gray_on_gray"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="40dp"
+            android:backgroundTint="@color/gray"
+            android:text="@string/main_page_back_button"
+            android:textColor="@color/almostblack"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+</RelativeLayout>
