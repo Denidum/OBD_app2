@@ -38,6 +38,8 @@ class Main_page_home : Fragment() {
         //Todo: вивести список завдяки функції, що шукає таблиці за id користувача
         items.add(Table(1, "Test Table1", 4, "00:00 1th January 2024"))
         items.add(Table(2, "Test Table2", 4, "00:00 1th January 2024"))
+        items.add(Table(3, "Test Table2", 4, "00:00 1th January 2024"))
+        items.add(Table(4, "Test Table2", 4, "00:00 1th January 2024"))
 
 
         itemList.layoutManager = LinearLayoutManager(activity)

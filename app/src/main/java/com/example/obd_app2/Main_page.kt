@@ -48,7 +48,6 @@ class Main_page : AppCompatActivity(), Main_user_to_main_act, Main_to_secondary_
             //Todo: тут має бути функція дешифрування
             Toast.makeText(this, "Scan data: $scanData", Toast.LENGTH_SHORT).show()
         }
-        userId = intent.getIntExtra("id", 0)
 
         bnv.setOnItemSelectedListener{
             compareItemsSelected(it.itemId)
