@@ -12,7 +12,7 @@ try:
     i=1
 except:
     package_dir = os.path.abspath(os.path.dirname(__file__))
-    db_dir = os.path.join(package_dir, 'list.db')
+    db_dir = os.path.join(package_dir, 'list.sqlite')
 
     connect = sqlite3.connect(db_dir)
     i=0
@@ -53,7 +53,12 @@ def count_id(name_table):
     return count + 1
 
 def add_baza_human(name, pasww, email): #додати людину до списку людей
-    cursor.execute("SELECT * FROM sys_human_list")
+    if i == 1:
+        cursor.execute("SELECT * FROM sys_human_list where login = %s or password = %s or email = %s",
+                       (name, pasww, email))
+    else:
+        cursor.execute("SELECT * FROM sys_human_list where login = ? or password = ? or email = ?",
+                       (name, pasww, email))
     while True:
         next_row = cursor.fetchone()
         if next_row:
