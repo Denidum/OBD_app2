@@ -29,7 +29,6 @@ class Main_page_home_add_table : Fragment(), EditTextChangeListener {
 
     }
 
-    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

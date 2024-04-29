@@ -30,13 +30,13 @@ class Welcome_page : AppCompatActivity(), Welcome_page_interface {
         }
 
         pref = getSharedPreferences("Table", MODE_PRIVATE)
-        var savedUserId = pref?.getInt("CurrIdUser", 0)!!
+        var savedUserId = pref?.getInt("CurrIdUser", -1)!!
         val resetUserId = intent.getIntExtra("id_reset", 0)
         if(resetUserId == 1){
-             saveUserId(0)
-             savedUserId = pref?.getInt("CurrIdUser", 0)!!
+             saveUserId(-1)
+             savedUserId = pref?.getInt("CurrIdUser", -1)!!
         }
-        if(savedUserId !=0){
+        if(savedUserId !=-1){
             intentToMain(savedUserId)
         }
 

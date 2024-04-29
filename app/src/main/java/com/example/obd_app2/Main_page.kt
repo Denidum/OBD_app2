@@ -36,6 +36,7 @@ class Main_page : AppCompatActivity(), Main_user_to_main_act, Main_to_secondary_
         bnv.itemActiveIndicatorColor = getColorStateList(R.color.gray_on_gray)
         bnv.setPadding(0,0,0,0)
         bnv.selectedItemId = R.id.ic_home
+        userId = intent.getIntExtra("id", 0)
         replaceFragment(fragArray[2], 0)
         val scanData = intent.getStringExtra("dataScan")
         if(scanData == "0"){
