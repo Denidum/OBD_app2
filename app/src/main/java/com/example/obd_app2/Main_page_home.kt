@@ -4,6 +4,7 @@ import Adapters.TableListItemsAdapter
 import Table_or_data_classes.Table
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -53,12 +54,10 @@ class Main_page_home : Fragment() {
         val checkTime = module["info_table_time"]
         val checkRow = module["info_table_row"]
         val checkIdTable = module["info_table_name_table"]
-        val a = arrayListOf<Table>()
 
         for(i in 0..Integer.parseInt(checkSizeTable?.call(userId).toString())-1){
-            a.add(Table(i, checkIdTable?.call(userId, i).toString(), Integer.parseInt(checkRow?.call(userId, i).toString()), checkTime?.call(userId, i).toString()))
+            items.add(Table(i, checkIdTable?.call(userId, i).toString(), Integer.parseInt(checkRow?.call(userId, i).toString()), checkTime?.call(userId, i).toString()))
         }
-        items.addAll(a.filterNotNull())
         //logAddTableButton.setOnClickListener{
             //val check = module["db_plus_table"]
             //val checkInfo = module["db_plus_table_info"]
@@ -81,5 +80,4 @@ class Main_page_home : Fragment() {
         }
         return v
     }
-
 }

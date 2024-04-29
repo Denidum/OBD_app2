@@ -17,9 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.obd_app2.interfaces.EditTextChangeListener
 import com.example.obd_app2.interfaces.Main_to_secondary_frags
-
-class Main_page_home_add_table : Fragment() {
-
     class Main_page_home_add_table : Fragment(), EditTextChangeListener {
         var UserId: Int? = null
         private val columnNameList = arrayListOf<String>("", "", "", "", "")
@@ -30,7 +27,6 @@ class Main_page_home_add_table : Fragment() {
 
         }
 
-        @SuppressLint("MissingInflatedId")
         override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -41,35 +37,30 @@ class Main_page_home_add_table : Fragment() {
 
             val data = arguments
             UserId = data?.getInt("id")
+
             val itemList: RecyclerView = v.findViewById(R.id.main_home_add_table_page_columns_list)
             val items = arrayListOf<Int>()
             itemList.setItemViewCacheSize(6)
             items.add(0)
+
             itemList.layoutManager = LinearLayoutManager(activity)
             val adapter = activity?.let { TableColumnsItemsAdapter(items, it, this) }
             itemList.adapter = adapter
 
             val addButton: ImageView = v.findViewById(R.id.add_column)
             val removeButton: ImageView = v.findViewById(R.id.remove_column)
-            val tableNameEditText: EditText =
-                v.findViewById(R.id.main_home_add_table_page_name_edittext)
+            val tableNameEditText: EditText = v.findViewById(R.id.main_home_add_table_page_name_edittext)
             val addTableBtn: Button = v.findViewById(R.id.main_home_add_table_page_add_table_button)
 
             val backBtn: Button = v.findViewById(R.id.main_home_add_table_page_back_button)
             val myInterface: Main_to_secondary_frags = activity as Main_to_secondary_frags
-            backBtn.setOnClickListener {
-                myInterface.passDataToMainToReplaceFrags(Main_page_home(), -1)
-            }
+            backBtn.setOnClickListener { myInterface.passDataToMainToReplaceFrags(Main_page_home(), -1) }
             addButton.setOnClickListener {
                 if (items.size < 5) {
                     items.add(items.size)
                     adapter?.notifyItemInserted(items.size - 1)
                 } else {
-                    Toast.makeText(
-                        v.context,
-                        "There is limit of columns 5 for table",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(v.context, "There is limit of columns 5 for table", Toast.LENGTH_SHORT).show()
                 }
             }
             removeButton.setOnClickListener {
@@ -174,4 +165,3 @@ class Main_page_home_add_table : Fragment() {
         }
 
     }
-}
