@@ -18,6 +18,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class Main_page : AppCompatActivity(), Main_user_to_main_act, Main_to_secondary_frags {
     private var userId: Int = 1
+    private var tableIdtoWork: Int = 0
     private var currSelectedItem: Int = 2
     private val fragArray = arrayOf(Main_page_qr(), Main_page_database(), Main_page_home(), Main_page_scan(),Main_page_user())
     private val titlesArray = arrayOf(R.string.main_page_top_tool_bar_str_qr_gen, R.string.main_page_top_tool_bar_str_database, R.string.main_page_top_tool_bar_str_main, R.string.main_page_top_tool_bar_str_qr_scan, R.string.main_page_top_tool_bar_str_profile)
@@ -68,6 +69,7 @@ class Main_page : AppCompatActivity(), Main_user_to_main_act, Main_to_secondary_
         val fragEx = frag
         val b = Bundle()
         b.putInt("id", userId)
+        b.putInt("tableId", tableIdtoWork)
         fragEx.arguments = b
         fragmentTrans.replace(R.id.main_page_frag_view, fragEx)
         fragmentTrans.commit()
@@ -103,6 +105,11 @@ class Main_page : AppCompatActivity(), Main_user_to_main_act, Main_to_secondary_
     }
 
     override fun passDataToMainToReplaceFrags(frag: Fragment, way: Int) {
+        replaceFragment(frag, way)
+    }
+
+    override fun passDataToMainToReplaceFrags(frag: Fragment, way: Int, tableId: Int) {
+        tableIdtoWork = tableId
         replaceFragment(frag, way)
     }
 

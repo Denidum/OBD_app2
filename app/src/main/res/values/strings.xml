@@ -43,6 +43,7 @@
     <string name="main_database_page_str_add_delete_data_button">Add/Delete data</string>
     <string name="main_database_page_str_view_data_button">View data</string>
     <string name="main_database_page_str_redact_data_button">Redact data</string>
+    <string name="main_database_page_str_add_delete_access_button">Share/Remove access to table</string>
 
     <string name="main_gen_qr_page_str_label">Generating QR</string>
     <string name="main_gen_qr_page_str_tables_label">Choose table to extract data from:</string>
@@ -75,4 +76,6 @@
     <string name="style_add_delete_column_item_str_enter_name">Enter column name</string>
     <string name="style_add_delete_column_item_str_data_type_label">Data type:</string>
     <string name="style_spinner_data_type_item_str">Choose type of data</string>
+
+
 </resources>

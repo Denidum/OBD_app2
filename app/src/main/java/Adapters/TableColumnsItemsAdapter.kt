@@ -66,7 +66,6 @@ class TableColumnsItemsAdapter(var items: List<Int>, var context: Context, priva
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                TODO("Not yet implemented")
             }
 
         }

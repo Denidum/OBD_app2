@@ -63,7 +63,7 @@ class Main_page_home_add_table : Fragment(), EditTextChangeListener {
                 adapter?.notifyItemInserted(items.size-1)
             }
             else{
-                Toast.makeText(v.context, "There is limit of 5 for table", Toast.LENGTH_SHORT).show()
+                Toast.makeText(v.context, "There is limit of columns 5 for table", Toast.LENGTH_SHORT).show()
             }
         }
         removeButton.setOnClickListener{

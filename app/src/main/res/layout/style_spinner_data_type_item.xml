@@ -7,5 +7,7 @@
     android:fontFamily="@font/inter_medium"
     android:textColor="@color/almostblack"
     android:background="@color/gray"
+    android:gravity="center_vertical|start"
+    android:paddingEnd="35dp"
     android:padding="5dp">
 </TextView>

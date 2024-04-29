@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.obd_app2.interfaces.Main_to_secondary_frags
@@ -32,6 +33,7 @@ class Main_page_home : Fragment() {
         userId = data?.getInt("id")
 
         val itemList: RecyclerView = v.findViewById(R.id.main_home_page_table_list)
+        itemList.setItemViewCacheSize(5)
         val items = arrayListOf<Table>()
         //Todo: вивести список завдяки функції, що шукає таблиці за id користувача
         items.add(Table(1, "Test Table1", 4, "00:00 1th January 2024"))
@@ -43,7 +45,12 @@ class Main_page_home : Fragment() {
 
         val myInterface: Main_to_secondary_frags = activity as Main_to_secondary_frags
         addTableBtn.setOnClickListener {
-            myInterface.passDataToMainToReplaceFrags(Main_page_home_add_table(), 1)
+            if(items.size <5) {
+                myInterface.passDataToMainToReplaceFrags(Main_page_home_add_table(), 1)
+            }
+            else{
+                Toast.makeText(v.context, "There is limit of 5 tables", Toast.LENGTH_SHORT).show()
+            }
         }
         return v
     }
