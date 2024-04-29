@@ -11,7 +11,6 @@ cursor = connect.cursor()
 #integer-number
 #text-string
 
-
 #Створити aдаптовану таблицю з 1 колонкою
 def db_plus1(name_table ,name1, type1):
     cursor.execute(""" CREATE TABLE IF NOT EXISTS """+name_table+"""(""" + name1 + type1 + """) """)
