@@ -1,8 +1,11 @@
+@file:Suppress("IMPLICIT_CAST_TO_ANY")
+
 package com.example.obd_app2
 
 import Adapters.TableColumnsItemsAdapter
 import Table_or_data_classes.Table_to_create
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,10 +16,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.chaquo.python.Python
 import com.example.obd_app2.interfaces.EditTextChangeListener
 import com.example.obd_app2.interfaces.Main_to_secondary_frags
+import java.time.LocalDateTime
 
 class Main_page_home_add_table : Fragment(), EditTextChangeListener {
     var UserId: Int? = null
@@ -27,6 +33,8 @@ class Main_page_home_add_table : Fragment(), EditTextChangeListener {
         super.onCreate(savedInstanceState)
 
     }
+        @SuppressLint("SuspiciousIndentation")
+        @RequiresApi(Build.VERSION_CODES.O)
         override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -122,14 +130,59 @@ class Main_page_home_add_table : Fragment(), EditTextChangeListener {
                         listToCreateColName,
                         listToCreateColType
                     )
-                    //Todo: нижче вставляєш замість Log.d(...) виклик функції сторення нової таблиці з кількістю колонок, що відповідає значенню items.size
-                    when (items.size) {
-                        1 -> Log.d("myLog", "Columns Count: ${items.size}")
-                        2 -> Log.d("myLog", "Columns Count: ${items.size}")
-                        3 -> Log.d("myLog", "Columns Count: ${items.size}")
-                        4 -> Log.d("myLog", "Columns Count: ${items.size}")
-                        5 -> Log.d("myLog", "Columns Count: ${items.size}")
+
+                    val py = Python.getInstance()
+                    val module = py.getModule("bd")
+
+                    if (items.size == 1) {
+                        val check = module["db_plus_table1"]
+                        val checkInfo = module["db_plus_table_info"]
+                        val checkSizeTable = module["size_table"]
+                        val tb = check?.call(tableName, listToCreateColName[0], listToCreateColType[0]).toString()
+                        checkInfo?.call(UserId, checkSizeTable?.call(UserId).toString(), items.size, LocalDateTime.now().toString(), tableName)
                     }
+                    else if(items.size==2){
+                        val check = module["db_plus_table2"]
+                        val checkInfo = module["db_plus_table_info"]
+                        val checkSizeTable = module["size_table"]
+                        val tb = check?.call(tableName, listToCreateColName[0], listToCreateColType[0],
+                            listToCreateColName[1], listToCreateColType[1]).toString()
+                        checkInfo?.call(UserId, checkSizeTable?.call(UserId).toString(),items.size, LocalDateTime.now().toString(), tableName)
+                    }
+                    else if(items.size==3){
+                        val check = module["db_plus_table3"]
+                        val checkInfo = module["db_plus_table_info"]
+                        val checkSizeTable = module["size_table"]
+                        val tb = check?.call(tableName, listToCreateColName[0], listToCreateColType[0],
+                            listToCreateColName[1], listToCreateColType[1],
+                            listToCreateColName[2], listToCreateColType[2]).toString()
+                        checkInfo?.call(UserId, checkSizeTable?.call(UserId).toString(),items.size, LocalDateTime.now().toString(), tableName)
+                    }
+                    else if(items.size==4){
+                        val check = module["db_plus_table4"]
+                        val checkInfo = module["db_plus_table_info"]
+                        val checkSizeTable = module["size_table"]
+                        val tb = check?.call(tableName, listToCreateColName[0], listToCreateColType[0],
+                            listToCreateColName[1], listToCreateColType[1],
+                            listToCreateColName[2], listToCreateColType[2],
+                            listToCreateColName[3], listToCreateColType[3]).toString()
+                        checkInfo?.call(UserId, checkSizeTable?.call(UserId).toString(),items.size, LocalDateTime.now().toString(), tableName)
+                    }
+                    else if(items.size==5){
+                        val check = module["db_plus_table5"]
+                        val checkInfo = module["db_plus_table_info"]
+                        val checkSizeTable = module["size_table"]
+                        val tb = check?.call(tableName, listToCreateColName[0], listToCreateColType[0],
+                            listToCreateColName[1], listToCreateColType[1],
+                            listToCreateColName[2], listToCreateColType[2],
+                            listToCreateColName[3], listToCreateColType[3],
+                            listToCreateColName[4], listToCreateColType[4]).toString()
+                        checkInfo?.call(UserId, checkSizeTable?.call(UserId).toString(),items.size, LocalDateTime.now().toString(), tableName)
+                    }
+                    else {
+                        Toast.makeText( requireActivity(),"Error", Toast.LENGTH_SHORT).show()
+                    }
+                    Toast.makeText( requireActivity(),tableName+" is created", Toast.LENGTH_SHORT).show()
                     myInterface.passDataToMainToReplaceFrags(Main_page_home(), -1)
                 }
             }
@@ -138,9 +191,11 @@ class Main_page_home_add_table : Fragment(), EditTextChangeListener {
         }
 
         private fun checkIfTableNameUniq(tableName: String): Boolean {
-            //для пошуку у користувача його користувацький таблиць юзай UserId(вже передав значення з Main_page)
-            //Todo: замість false знизу ставиш функцію, що повертає true, якщо ім'я таблиці унікальне, а false, якщо знайдено у користувача таблицю з таким же ім'я
-            return false
+            val py = Python.getInstance()
+            val module = py.getModule("bd")
+            val check = module["check_name_table"]
+            val check_name = check?.call(tableName, UserId).toString()
+            return check_name.toBooleanStrict()
         }
 
         private fun checkIfEmpty(str: String): Boolean {

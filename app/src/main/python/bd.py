@@ -44,6 +44,25 @@ def check_info_human(name_human='', passw_human=''):
             return "Enter password"
         else:
             return "Wrong"
+
+def check_name_table(name_table, id):
+    if i==1:
+        cursor.execute("SELECT * FROM sys_human_table where id_user = %s",(id,))
+    else:
+        cursor.execute("SELECT * FROM sys_human_table WHERE id_user = ?", (id,))
+    while True:
+        next_row = cursor.fetchone()
+        if next_row:
+            (id, id_table, row, time, name) = next_row
+            if name == name_table:
+                connect.commit()
+                return "true"
+            else:
+                pass
+        else:
+            connect.commit()
+            return "false"
+
 def count_id(name_table):
     cursor.execute("SELECT * FROM "+name_table)
     result = cursor.fetchall()
@@ -97,13 +116,44 @@ def check_id_user(name_user):
         return None
 
 
-def db_plus_table(name_table, name1, type1, name2, type2, name3, type3):
-    cursor.execute(""" CREATE TABLE IF NOT EXISTS """+name_table+"""("""
+def db_plus_table1(name_table, name1, type1):
+    cursor.execute(""" CREATE TABLE """+name_table+""" (""" + name1 +""" """+ type1 + """) """)
+    connect.commit()
+    return "1"
+
+def db_plus_table2(name_table, name1, type1, name2, type2):
+    cursor.execute(""" CREATE TABLE """+name_table+"""("""
+                   + name1 +""" """+ type1 + """, """
+                   + name2 +""" """+ type2 + """) """)
+    connect.commit()
+    return "2"
+
+def db_plus_table3(name_table, name1, type1, name2, type2, name3, type3):
+    cursor.execute(""" CREATE TABLE """+name_table+"""("""
                    + name1 +""" """+ type1 + """, """
                    + name2 +""" """+ type2 + """, """
                    + name3 +""" """+ type3 + """) """)
     connect.commit()
     return "3"
+
+def db_plus_table4(name_table, name1, type1, name2, type2, name3, type3,name4, type4):
+    cursor.execute(""" CREATE TABLE """+name_table+"""("""
+                   + name1 +""" """+ type1 + """, """
+                   + name2 +""" """+ type2 + """, """
+                   + name3 +""" """+ type3 + """, """
+                   + name4 +""" """+ type4 + """) """)
+    connect.commit()
+    return "4"
+
+def db_plus_table5(name_table, name1, type1, name2, type2, name3, type3,name4, type4,name5, type5):
+    cursor.execute(""" CREATE TABLE """+name_table+"""("""
+                   + name1 +""" """+ type1 + """, """
+                   + name2 +""" """+ type2 + """, """
+                   + name3 +""" """+ type3 + """, """
+                   + name4 +""" """+ type4 + """, """
+                   + name5 +""" """+ type5 + """) """)
+    connect.commit()
+    return "5"
 
 def db_plus_table_info(id_user, id_table, row, time,name):
     data = [id_user, id_table, row, time, name]

@@ -56,14 +56,8 @@ class Main_page_home : Fragment() {
         val checkIdTable = module["info_table_name_table"]
 
         for(i in 0..Integer.parseInt(checkSizeTable?.call(userId).toString())-1){
-            items.add(Table(i, checkIdTable?.call(userId, i).toString(), Integer.parseInt(checkRow?.call(userId, i).toString()), checkTime?.call(userId, i).toString()))
+            items.add(Table(i, checkIdTable?.call(i, userId).toString(), Integer.parseInt(checkRow?.call(i, userId).toString()), checkTime?.call(i, userId).toString()))
         }
-        //logAddTableButton.setOnClickListener{
-            //val check = module["db_plus_table"]
-            //val checkInfo = module["db_plus_table_info"]
-            //val row = check?.call("Test", "testCol0", "text", "testCol1", "text", "testCol2", "text").toString()
-            //checkInfo?.call(userId, checkSizeTable?.call(userId).toString(),Integer.parseInt(row),LocalDateTime.now().toString(), "Test")
-        //}
 
         itemList.layoutManager = LinearLayoutManager(activity)
         itemList.adapter = activity?.let { TableListItemsAdapter(items, it) }
