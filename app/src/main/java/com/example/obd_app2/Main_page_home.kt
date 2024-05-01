@@ -102,7 +102,7 @@ class Main_page_home : Fragment(), ChooseTableToDelete {
             //Todo: тут викликаєш бекенд функцію, що видаляє таблицю
             //у rastrelList зберігають елементи типу Table, звідти витягуєш потрібні дані, щоб видалити таблицю
         }
-        myInterface.passDataToMainToReplaceFrags(Main_page_home(), 0)
+        myInterface?.passDataToMainToReplaceFrags(Main_page_home(), 0)
     }
     override fun buttonChecked(index: Int) {
         listTableToDelete.removeAt(index)
