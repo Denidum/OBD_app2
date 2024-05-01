@@ -122,14 +122,14 @@ def db_plus_table1(name_table, name1, type1):
     return "1"
 
 def db_plus_table2(name_table, name1, type1, name2, type2):
-    cursor.execute(""" CREATE TABLE """+name_table+"""("""
+    cursor.execute(""" CREATE TABLE """+name_table+""" ("""
                    + name1 +""" """+ type1 + """, """
                    + name2 +""" """+ type2 + """) """)
     connect.commit()
     return "2"
 
 def db_plus_table3(name_table, name1, type1, name2, type2, name3, type3):
-    cursor.execute(""" CREATE TABLE """+name_table+"""("""
+    cursor.execute(""" CREATE TABLE """+name_table+""" ("""
                    + name1 +""" """+ type1 + """, """
                    + name2 +""" """+ type2 + """, """
                    + name3 +""" """+ type3 + """) """)
@@ -137,7 +137,7 @@ def db_plus_table3(name_table, name1, type1, name2, type2, name3, type3):
     return "3"
 
 def db_plus_table4(name_table, name1, type1, name2, type2, name3, type3,name4, type4):
-    cursor.execute(""" CREATE TABLE """+name_table+"""("""
+    cursor.execute(""" CREATE TABLE """+name_table+""" ("""
                    + name1 +""" """+ type1 + """, """
                    + name2 +""" """+ type2 + """, """
                    + name3 +""" """+ type3 + """, """
@@ -146,7 +146,7 @@ def db_plus_table4(name_table, name1, type1, name2, type2, name3, type3,name4, t
     return "4"
 
 def db_plus_table5(name_table, name1, type1, name2, type2, name3, type3,name4, type4,name5, type5):
-    cursor.execute(""" CREATE TABLE """+name_table+"""("""
+    cursor.execute(""" CREATE TABLE """+name_table+""" ("""
                    + name1 +""" """+ type1 + """, """
                    + name2 +""" """+ type2 + """, """
                    + name3 +""" """+ type3 + """, """
@@ -154,6 +154,10 @@ def db_plus_table5(name_table, name1, type1, name2, type2, name3, type3,name4, t
                    + name5 +""" """+ type5 + """) """)
     connect.commit()
     return "5"
+
+def db_delete(name_table):
+    cursor.execute("DROP TABLE "+name_table)
+    connect.commit()
 
 def db_plus_table_info(id_user, id_table, row, time,name):
     data = [id_user, id_table, row, time, name]
