@@ -61,6 +61,9 @@
     <string name="main_database_page_str_add_delete_delete_data_button">Delete chosen data</string>
     <string name="main_database_str_add_delete_data_label">Choose data from list to delete</string>
 
+    <string name="main_database_page_str_add_data_label">Enter new data to the table</string>
+    <string name="main_database_page_str_add_data_enter_data_hint">Enter data</string>
+
     <string name="main_database_page_str_redact_choosing_data_redact_data_button">Redact chosen data</string>
     <string name="main_database_page_str_redact_choosing_data_label">Choose data from list to redact</string>
 
