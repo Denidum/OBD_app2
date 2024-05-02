@@ -14,12 +14,14 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.chaquo.python.Python
 import com.example.obd_app2.interfaces.EditTextChangeListener
 import com.example.obd_app2.interfaces.Main_to_secondary_frags
 
 class Main_page_database_add_data : Fragment(), EditTextChangeListener {
     private var userId: Int? = null
     private var tableId: Int? = null
+    private var tableName = ""
     private val columnDataList = arrayListOf<String>()
     private var myInterface: Main_to_secondary_frags? = null
 
@@ -36,8 +38,14 @@ class Main_page_database_add_data : Fragment(), EditTextChangeListener {
         val v = inflater.inflate(R.layout.fragment_main_page_database_add_data, container, false)
         val data = arguments
 
+        val py = Python.getInstance()
+        val module = py.getModule("bd")
+
+        val checkIdTable = module["info_table_name_table"]
+
         userId = data?.getInt("id")
         tableId = data?.getInt("tableId")
+        tableName = checkIdTable?.call(tableId, userId).toString()
 
         myInterface = activity as Main_to_secondary_frags
 
@@ -47,28 +55,31 @@ class Main_page_database_add_data : Fragment(), EditTextChangeListener {
         //Todo:: за допомогою userId та tableId у БД знаходиш дані про колонки у таблиці, дані з якої будемо діставати (кількість колонок + їхні назви + типи даних)
         //кількість колонок
         //значення 4 cтоїть для тесту відображення у інтерфейсі (маєш замінити бекендом)
-        val columnCount: Int = 4
+
+
+        val checkSizeTable = module["count_column"]
+
+        val columnCount: Int = Integer.parseInt(checkSizeTable?.call(tableName).toString())
 
         for(i in 0..<columnCount step 1){
             columnDataList.add("")
         }
         //їхні назви (теж бекенд), можеш спробувати через for зробити добавлення
+
         val columnNames = arrayListOf<String>()
         //їхні типи
         val columnDataType = arrayListOf<String>()
 
         //хардкод для тесту відображення у інтерфейсі (треба видалити)
-        columnNames.add("Col1")
-        columnNames.add("Col2")
-        columnNames.add("Col3")
-        columnNames.add("Col4")
 
-        columnDataType.add("Int")
-        columnDataType.add("TEXT")
-        columnDataType.add("Int")
-        columnDataType.add("TEXT")
-        //
+        val checkNameCol= module["count_column"]
+        val checkTypeCol= module["count_column"]
 
+        for(i in 0..<columnCount step 1){
+            columnNames.add(checkNameCol?.call(tableName).toString())
+            columnDataType.add(checkTypeCol?.call(tableName).toString())
+        }
+//
         val columnDataToDisplay = arrayListOf<Column_to_add_data>()
         for(i in 0..<columnCount step 1){
             columnDataToDisplay.add(Column_to_add_data(i+1, columnNames[i], columnDataType[i]))

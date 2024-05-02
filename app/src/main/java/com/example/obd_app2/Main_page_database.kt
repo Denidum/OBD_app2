@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
 import android.widget.Toast
+import com.chaquo.python.Python
 import com.example.obd_app2.interfaces.Main_to_secondary_frags
 
 class Main_page_database : Fragment() {
@@ -36,9 +37,20 @@ class Main_page_database : Fragment() {
 
         //список знайдених у користувача таблиць у вигляді об'єктів класу Table
         val items = arrayListOf<Table>()
-        //Todo: Замінити хардкод додавання таблиць на функцію з пайтона, юзай UserId
-        items.add(Table(1, "Test Table1", 4, "00:00 1th January 2024"))
-        items.add(Table(2, "Test Table2", 4, "00:00 1th January 2024"))
+        val py = Python.getInstance()
+        val module = py.getModule("bd")
+
+        val checkSizeTable = module["size_table"]
+        val checkTime = module["info_table_time"]
+        val checkRow = module["info_table_row"]
+        val checkIdTable = module["info_table_name_table"]
+
+        for (i in 0..Integer.parseInt(checkSizeTable?.call(userId).toString()) - 1) {
+            items.add(
+                Table(i, checkIdTable?.call(i, userId).toString(), Integer.parseInt(checkRow?.call(i, userId).toString()), checkTime?.call(i, userId).toString())
+            )
+        }
+
         val tableName = arrayListOf<String>()
         //перевірка чи користувач має таблиці
         if(items.size > 0) {
@@ -48,7 +60,7 @@ class Main_page_database : Fragment() {
         }
         else{
             tableName.add("There is no table")
-            items.add(Table(0, "null", 0, "null"))
+            items.add(Table(-1, "null", 0, "null"))
         }
         selectedTable = items[0]
 
@@ -80,7 +92,7 @@ class Main_page_database : Fragment() {
 
         val myInterface: Main_to_secondary_frags = activity as Main_to_secondary_frags
         addDelBtn.setOnClickListener {
-            if(selectedTable!!.id != 0){
+            if(selectedTable!!.id != -1){
                 myInterface.passDataToMainToReplaceFrags(Main_page_database_add_delete_data(), 0, selectedTable!!.id)
             }
             else{

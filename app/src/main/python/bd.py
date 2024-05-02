@@ -238,3 +238,45 @@ def size_table(id):
         count = 0
     connect.commit()
     return count
+
+
+def count_column(name_table):
+    if i==1:
+        cursor.execute("SELECT COUNT(COLUMN_NAME) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'qdms' AND TABLE_NAME = %s;",(name_table,))
+    else:
+        cursor.execute("SELECT COUNT(COLUMN_NAME) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'qdms' AND TABLE_NAME ='{}'".format(name_table, ))
+    count_row = cursor.fetchone()
+    if count_row is not None:
+        count = int(count_row[0])
+    else:
+        count = 0
+    connect.commit()
+    return count
+
+def info_columns_name(name_table):
+    if i == 1:
+        cursor.execute("SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'qdms' AND TABLE_NAME = %s;",(name_table,))
+    else:
+        cursor.execute("SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'qdms' AND TABLE_NAME ='{}'".format(name_table, ))
+    next_row = cursor.fetchone()
+    if next_row:
+        (name_col, type_col) = next_row
+        connect.commit()
+        return name_col
+    else:
+        connect.commit()
+        return None
+
+def info_columns_type(name_table):
+    if i == 1:
+        cursor.execute("SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'qdms' AND TABLE_NAME = %s;",(name_table,))
+    else:
+        cursor.execute("SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'qdms' AND TABLE_NAME ='{}'".format(name_table, ))
+    next_row = cursor.fetchone()
+    if next_row:
+        (name_col, type_col) = next_row
+        connect.commit()
+        return type_col
+    else:
+        connect.commit()
+        return None
