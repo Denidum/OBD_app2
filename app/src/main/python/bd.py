@@ -45,16 +45,22 @@ def check_info_human(name_human='', passw_human=''):
         else:
             return "Wrong"
 
-def check_name_table(name_table, id):
-    if i==1:
-        cursor.execute("SELECT * FROM sys_human_table where id_user = %s",(id,))
+def contains_only_alphanumeric(s):
+    return all(c.isalnum() for c in s)
+
+def check_name_table(name_table):
+    if contains_only_alphanumeric(name_table):
+        pass
     else:
-        cursor.execute("SELECT * FROM sys_human_table WHERE id_user = ?", (id,))
+        return "Error"
+    name_user_lower = name_table.lower()
+    cursor.execute("SELECT * FROM sys_human_table")
     while True:
         next_row = cursor.fetchone()
         if next_row:
             (id, id_table, row, time, name) = next_row
-            if name == name_table:
+            name_lower = name.lower()
+            if name_lower == name_user_lower:
                 connect.commit()
                 return "true"
             else:
@@ -155,9 +161,15 @@ def db_plus_table5(name_table, name1, type1, name2, type2, name3, type3,name4, t
     connect.commit()
     return "5"
 
-def db_delete(name_table):
+def table_delete(name_table):
     cursor.execute("DROP TABLE "+name_table)
     connect.commit()
+    return name_table
+
+def delete_row_name_table(name_table):
+    cursor.execute("DELETE FROM sys_human_table WHERE name_table = %s", (name_table, ))
+    connect.commit()
+    return name_table
 
 def db_plus_table_info(id_user, id_table, row, time,name):
     data = [id_user, id_table, row, time, name]
@@ -195,7 +207,7 @@ def info_table_row(id_table, id):
         connect.commit()
         return row
     else:
-        return None
+        return 0
 
 def info_table_time(id_table, id):
     if i==1:

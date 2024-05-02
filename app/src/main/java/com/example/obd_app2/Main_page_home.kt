@@ -2,6 +2,7 @@ package com.example.obd_app2
 
 import Adapters.TableListItemsAdapter
 import Table_or_data_classes.Table
+import android.app.Activity
 import android.os.Build
 import android.app.AlertDialog
 import android.os.Bundle
@@ -18,6 +19,7 @@ import com.example.obd_app2.interfaces.Welcome_page_interface
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import android.widget.Toast
+import androidx.core.app.ActivityCompat.recreate
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.obd_app2.interfaces.ChooseTableToDelete
@@ -27,6 +29,7 @@ class Main_page_home : Fragment(), ChooseTableToDelete {
     private var myInterface: Main_to_secondary_frags? = null
     private val items = arrayListOf<Table>()
     private var listTableToDelete = arrayListOf<Int>()
+    var rastrelList = arrayListOf<String>()
     private var userId: Int? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,12 +65,7 @@ class Main_page_home : Fragment(), ChooseTableToDelete {
 
         for (i in 0..Integer.parseInt(checkSizeTable?.call(userId).toString()) - 1) {
             items.add(
-                Table(
-                    i,
-                    checkIdTable?.call(i, userId).toString(),
-                    Integer.parseInt(checkRow?.call(i, userId).toString()),
-                    checkTime?.call(i, userId).toString()
-                )
+                Table(i, checkIdTable?.call(i, userId).toString(), Integer.parseInt(checkRow?.call(i, userId).toString()), checkTime?.call(i, userId).toString())
             )
         }
 
@@ -80,7 +78,6 @@ class Main_page_home : Fragment(), ChooseTableToDelete {
             itemList.adapter = activity?.let { TableListItemsAdapter(items, it, this) }
 
             val myInterface: Main_to_secondary_frags = activity as Main_to_secondary_frags
-
             addTableBtn.setOnClickListener {
                 if (items.size < 5) {
                     myInterface.passDataToMainToReplaceFrags(Main_page_home_add_table(), 1)
@@ -90,10 +87,16 @@ class Main_page_home : Fragment(), ChooseTableToDelete {
                 }
             }
 
+
             delTableBtn.setOnClickListener {
                 if (!listTableToDelete.contains(1)) {
                     Toast.makeText(context, "Choose any table to delete", Toast.LENGTH_SHORT).show()
                 } else {
+                    for (i in 0..<listTableToDelete.size step 1) {
+                        if (listTableToDelete[i] == 1) {
+                            rastrelList.add(items[i].name)
+                        }
+                    }
                     confirmDeletionDialog()
                 }
             }
@@ -116,17 +119,18 @@ class Main_page_home : Fragment(), ChooseTableToDelete {
         }
 
         fun deleteTableFromSQL() {
-            var rastrelList = arrayListOf<Table>()
-            for (i in 0..<listTableToDelete.size step 1) {
-                if (listTableToDelete[i] == 1) {
-                    rastrelList.add(items[i])
-                }
-            }
-            for (i in 0..<rastrelList.size step 1) {
-                //Todo: тут викликаєш бекенд функцію, що видаляє таблицю
-                //у rastrelList зберігають елементи типу Table, звідти витягуєш потрібні дані, щоб видалити таблицю
+            val py = Python.getInstance()
+            val module = py.getModule("bd")
+            val checkDeleteTable = module["table_delete"]
+            val checkDeleteInfoTable = module["delete_row_name_table"]
+
+            for(i in 0..<rastrelList.size step 1) {
+                val del = checkDeleteTable?.call(rastrelList[i]).toString()
+                val infoDel = checkDeleteInfoTable?.call(rastrelList[i]).toString()
+                Toast.makeText(context, del + "is deleted", Toast.LENGTH_SHORT).show()
             }
             myInterface?.passDataToMainToReplaceFrags(Main_page_home(), 0)
+            (activity as? Activity)?.recreate()
         }
 
         override fun buttonChecked(index: Int) {

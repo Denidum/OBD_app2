@@ -194,8 +194,14 @@ class Main_page_home_add_table : Fragment(), EditTextChangeListener {
             val py = Python.getInstance()
             val module = py.getModule("bd")
             val check = module["check_name_table"]
-            val check_name = check?.call(tableName, UserId).toString()
-            return check_name.toBooleanStrict()
+            val check_name = check?.call(tableName).toString()
+            if (check_name =="Error"){
+                Toast.makeText( requireActivity(),"Name is not correct", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                return check_name.toBooleanStrict()
+            }
+            return false
         }
 
         private fun checkIfEmpty(str: String): Boolean {
