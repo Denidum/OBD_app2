@@ -6,14 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
-import android.widget.RadioButton
-import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.obd_app2.R
-import com.example.obd_app2.interfaces.ChooseTableToDelete
+import com.example.obd_app2.interfaces.ChooseTableOrDataToDelete
 
-class TableListItemsAdapter(var items: List<Table>, var context: Context, val listener: ChooseTableToDelete): RecyclerView.Adapter<TableListItemsAdapter.myViewHolder>() {
+class TableListItemsAdapter(var items: List<Table>, var context: Context, val listener: ChooseTableOrDataToDelete): RecyclerView.Adapter<TableListItemsAdapter.myViewHolder>() {
     class myViewHolder(view: View): RecyclerView.ViewHolder(view){
         val tableName: TextView = view.findViewById(R.id.table_item_name)
         val colList: TextView = view.findViewById(R.id.table_item_col_count_and_list)

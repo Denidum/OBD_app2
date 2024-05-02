@@ -23,14 +23,17 @@
             android:text="@string/main_database_str_add_delete_data_label"
             android:textColor="@color/gray"
             android:textSize="23sp" />
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ListView
+                android:id="@+id/main_database_add_delete_data_list"
+                android:layout_width="wrap_content"
+                android:layout_height="350dp"
+                android:layout_marginTop="20dp">
 
-        <ListView
-            android:id="@+id/main_database_add_delete_data_list"
-            android:layout_width="wrap_content"
-            android:layout_height="350dp"
-            android:layout_marginTop="20dp">
-
-        </ListView>
+            </ListView>
+        </HorizontalScrollView>
 
         <Button
             android:id="@+id/main_database_add_delete_delete_button"

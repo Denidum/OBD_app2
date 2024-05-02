@@ -1,6 +1,6 @@
 package com.example.obd_app2.interfaces
 
-interface ChooseTableToDelete {
+interface ChooseTableOrDataToDelete {
     fun buttonChecked(index: Int)
     fun buttonUnchecked(index: Int)
 }

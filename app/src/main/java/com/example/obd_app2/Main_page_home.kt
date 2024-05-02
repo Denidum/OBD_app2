@@ -12,10 +12,10 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.obd_app2.interfaces.ChooseTableToDelete
+import com.example.obd_app2.interfaces.ChooseTableOrDataToDelete
 import com.example.obd_app2.interfaces.Main_to_secondary_frags
 
-class Main_page_home : Fragment(), ChooseTableToDelete {
+class Main_page_home : Fragment(), ChooseTableOrDataToDelete {
     private var myInterface: Main_to_secondary_frags? = null
     private val items = arrayListOf<Table>()
     private var listTableToDelete = arrayListOf<Int>()
