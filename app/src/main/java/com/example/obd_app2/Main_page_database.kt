@@ -81,7 +81,7 @@ class Main_page_database : Fragment() {
         val myInterface: Main_to_secondary_frags = activity as Main_to_secondary_frags
         addDelBtn.setOnClickListener {
             if(selectedTable!!.id != 0){
-                myInterface.passDataToMainToReplaceFrags(Main_page_database_add_delete_data(), 1, selectedTable!!.id)
+                myInterface.passDataToMainToReplaceFrags(Main_page_database_add_delete_data(), 0, selectedTable!!.id)
             }
             else{
                 Toast.makeText(context, "There is no table to work with", Toast.LENGTH_SHORT).show()

@@ -96,8 +96,13 @@ class Main_page_database_add_delete_data : Fragment(), ChooseTableOrDataToDelete
                 confirmDeletionDialog(dataListToDelete)
             }
         }
-        val backBtn = v.findViewById<Button>(R.id.main_database_add_delete_back_button)
         val myInterface: Main_to_secondary_frags = activity as Main_to_secondary_frags
+        val addDataBtn: Button = v.findViewById(R.id.main_database_add_delete_add_button)
+        addDataBtn.setOnClickListener {
+            myInterface.passDataToMainToReplaceFrags(Main_page_database_add_data(),1)
+        }
+        val backBtn = v.findViewById<Button>(R.id.main_database_add_delete_back_button)
+
         backBtn.setOnClickListener {
             myInterface.passDataToMainToReplaceFrags(Main_page_database(),-1)
         }
