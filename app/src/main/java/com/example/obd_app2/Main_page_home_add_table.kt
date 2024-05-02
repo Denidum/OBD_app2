@@ -28,6 +28,8 @@ class Main_page_home_add_table : Fragment(), EditTextChangeListener {
     var UserId: Int? = null
     private val columnNameList = arrayListOf<String>("","","","","")
     private val columnDataType = arrayListOf<String>("","","","","")
+    private var nameErrorTable = ""
+    private var nameErrorColums = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,8 +96,13 @@ class Main_page_home_add_table : Fragment(), EditTextChangeListener {
                 }
                 if (checkIfTableNameUniq(tableName)) {
                     isCreateTableSucc = 1
-                    Toast.makeText(context, "Table name must be unique", Toast.LENGTH_SHORT)
-                        .show()
+                    if (nameErrorTable == "Error") {
+                        Toast.makeText(requireActivity(), "Table name is not correct", Toast.LENGTH_SHORT)
+                            .show()
+                    } else {
+                        Toast.makeText(context, "Table name must be unique", Toast.LENGTH_SHORT)
+                            .show()
+                    }
                 }
                 val listToCreateColName = ArrayList<String>()
                 val listToCreateColType = ArrayList<String>()
@@ -112,14 +119,22 @@ class Main_page_home_add_table : Fragment(), EditTextChangeListener {
                         listToCreateColName.add(strName)
                         listToCreateColType.add(columnDataType[i])
                         if (checkIfUniq(listToCreateColName, strName, i)) {
-                            Log.d("myLog", "field ${i} is not unique")
-                            Toast.makeText(
-                                context,
-                                "All Column names must be unique",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            isCreateTableSucc = 1
-                            break
+                            if(nameErrorColums=="Error"){
+                                Toast.makeText(context, "Column name is not correct", Toast.LENGTH_SHORT)
+                                    .show()
+                                isCreateTableSucc = 1
+                                break
+                            }
+                            else {
+                                Log.d("myLog", "field ${i} is not unique")
+                                Toast.makeText(
+                                    context,
+                                    "All Column names must be unique",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                isCreateTableSucc = 1
+                                break
+                            }
                         }
                     }
                 }
@@ -196,22 +211,29 @@ class Main_page_home_add_table : Fragment(), EditTextChangeListener {
             val check = module["check_name_table"]
             val check_name = check?.call(tableName).toString()
             if (check_name =="Error"){
-                Toast.makeText( requireActivity(),"Name is not correct", Toast.LENGTH_SHORT).show()
+                nameErrorTable = "Error"
+                return true
             }
-            else {
-                return check_name.toBooleanStrict()
-            }
-            return false
+            return check_name.toBooleanStrict()
         }
 
         private fun checkIfEmpty(str: String): Boolean {
             return str == ""
+        }
+        private fun containsOnlyAlphanumeric(str: String): Boolean {
+            return str.all { it.isLetterOrDigit() }
         }
 
         private fun checkIfUniq(list: ArrayList<String>, str: String, index: Int): Boolean {
             val modList = ArrayList<String>()
             modList.addAll(list.filterNotNull())
             modList.removeAt(index)
+
+            if (!containsOnlyAlphanumeric(str)) {
+                nameErrorTable = "Error"
+                return true
+            }
+
             return modList.contains(str)
         }
 

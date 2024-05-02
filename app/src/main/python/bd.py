@@ -4,7 +4,7 @@ import mysql.connector
 
 try:
     connect = mysql.connector.connect(
-        host="192.168.1.12",
+        host="192.168.1.14 ",
         user="client",
         password="KillJoy98",
         database="qdms"
@@ -167,7 +167,10 @@ def table_delete(name_table):
     return name_table
 
 def delete_row_name_table(name_table):
-    cursor.execute("DELETE FROM sys_human_table WHERE name_table = %s", (name_table, ))
+    if i==1:
+        cursor.execute("DELETE FROM sys_human_table WHERE name_table = %s", (name_table, ))
+    else:
+        cursor.execute("DELETE FROM sys_human_table WHERE name_table = ?", (name_table,))
     connect.commit()
     return name_table
 
