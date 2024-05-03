@@ -8,7 +8,7 @@
     tools:context=".Main_page_database_add_data">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingLeft="30dp"
