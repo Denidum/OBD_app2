@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_centerInParent="true">
 
@@ -16,7 +16,6 @@
                 android:id="@+id/main_scan_page_camera_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="250dp"
                 android:backgroundTint="@color/gray"
                 android:text="@string/main_import_qr_page_str_open_camera"
                 android:textColor="@color/almostblack"
