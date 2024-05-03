@@ -239,6 +239,19 @@ def size_table(id):
     connect.commit()
     return count
 
+def size_table_row(name_table, name_col):
+    if i==1:
+        cursor.execute("SELECT COUNT("+name_col+") FROM "+name_table)
+    else:
+        cursor.execute("SELECT COUNT("+name_col+") FROM "+name_table)
+    count_row = cursor.fetchone()
+    if count_row is not None:
+        count = int(count_row[0])
+    else:
+        count = 0
+    connect.commit()
+    return count
+
 
 def count_column(name_table):
     if i==1:
@@ -253,30 +266,61 @@ def count_column(name_table):
     connect.commit()
     return count
 
-def info_columns_name(name_table):
+def info_columns_name(name_table, number):
+    t=0
+    nc=0
     if i == 1:
         cursor.execute("SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'qdms' AND TABLE_NAME = %s;",(name_table,))
     else:
-        cursor.execute("SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'qdms' AND TABLE_NAME ='{}'".format(name_table, ))
-    next_row = cursor.fetchone()
-    if next_row:
-        (name_col, type_col) = next_row
-        connect.commit()
-        return name_col
-    else:
-        connect.commit()
-        return None
+        cursor.execute("SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'list' AND TABLE_NAME ='{}'".format(name_table, ))
+    while True:
+        next_row = cursor.fetchone()
+        if next_row:
+            (name_col, type_col) = next_row
+            if t==number:
+                nc = name_col
+                t=t+1
+            else:
+                t=t+1
+        else:
+            break
+    connect.commit()
+    return nc
 
-def info_columns_type(name_table):
+def info_columns_type(name_table, number):
+    t=0
+    nc=0
     if i == 1:
         cursor.execute("SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'qdms' AND TABLE_NAME = %s;",(name_table,))
     else:
-        cursor.execute("SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'qdms' AND TABLE_NAME ='{}'".format(name_table, ))
-    next_row = cursor.fetchone()
-    if next_row:
-        (name_col, type_col) = next_row
-        connect.commit()
-        return type_col
+        cursor.execute("SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'list' AND TABLE_NAME ='{}'".format(name_table, ))
+    while True:
+        next_row = cursor.fetchone()
+        if next_row:
+            (name_col, type_col) = next_row
+            if t==number:
+                nc = type_col
+                t=t+1
+            else:
+                t=t+1
+        else:
+            break
+    connect.commit()
+    return nc
+
+def db_plus_data(info_col,name_col, name_table):
+    if i==1:
+        cursor.execute("INSERT INTO "+name_table+" ("+name_col+") VALUES(%s);", (info_col,))
     else:
-        connect.commit()
-        return None
+        cursor.execute("INSERT INTO "+name_table+" ("+name_col+") VALUES(?);", (info_col,))
+    connect.commit()
+    return "correct"
+
+def db_read_data(name_col, name_table):
+    if i==1:
+        cursor.execute("SELECT "+name_col+" FROM "+name_table)
+    else:
+        cursor.execute("SELECT "+name_col+" FROM "+name_table)
+    info_col = cursor.fetchone()
+    connect.commit()
+    return info_col

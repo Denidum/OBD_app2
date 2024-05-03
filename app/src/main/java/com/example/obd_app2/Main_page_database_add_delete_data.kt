@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ListView
 import android.widget.Toast
+import com.chaquo.python.Python
 import com.example.obd_app2.interfaces.ChooseTableOrDataToDelete
 import com.example.obd_app2.interfaces.Main_to_secondary_frags
 
@@ -21,6 +22,7 @@ class Main_page_database_add_delete_data : Fragment(), ChooseTableOrDataToDelete
     private var columnData = arrayListOf<Data_list_row>() // змінна, що буде зберігати об'єкти класу Data_list_row, які описують рядок даних з таблиці
     private var userId: Int? = null
     private var tableId: Int? = null
+    private var tableName = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -37,40 +39,40 @@ class Main_page_database_add_delete_data : Fragment(), ChooseTableOrDataToDelete
             false
         )
         val data = arguments
-        //достається id користувача
+
+        val py = Python.getInstance()
+        val module = py.getModule("bd")
+
+        val checkIdTable = module["info_table_name_table"]
+
         userId = data?.getInt("id")
-        //достається id таблиці, з якою працюємо
         tableId = data?.getInt("tableId")
+        tableName = checkIdTable?.call(tableId, userId).toString()
 
         myInterface = activity as Main_to_secondary_frags
 
         val dataList: ListView = v.findViewById(R.id.main_database_add_delete_data_list)
-        //Todo:: за допомогою userId та tableId у БД знаходиш дані про таблицю, дані з якої будемо діставати (кількість колонок + їхні назви)
-        //кількість колонок
-        //значення 4 cтоїть для тесту відображення у інтерфейсі (маєш заміти бекендом)
-        val columnCount: Int = 4
-        //їхні назви (теж бекенд), можеш спробувати через for зробити добавлення
-        val columnNames = arrayListOf<String>()
-        /*
-        //ось цикл for
-        for(i in 0..<columnCount step 1){
-            //кожну ітерацію записуємо лише одну назву, якщо користуємося циклом
-            columnNames.add( *тут має бути функція, що повертає назву колонки таблиці* )
-        }
-         */
-        //хардкод для тесту відображення у інтерфейсі (треба видалити)
-        columnNames.add("1")
-        columnNames.add("2")
-        columnNames.add("3")
-        columnNames.add("4")
 
-        //cписок, що буде зберігати інформацію про структуру даних у таблиці
+        val checkSizeTable = module["count_column"]
+
+        val columnCount: Int = Integer.parseInt(checkSizeTable?.call(tableName).toString())
+
+        val columnNames = arrayListOf<String>()
+
+        val checkNameCol= module["info_columns_name"]
+
+        for(i in 0..<columnCount step 1){
+            columnNames.add(checkNameCol?.call(tableName, i).toString())
+        }
+
         val columnDataToDisplay = arrayListOf<Data_list_row>(Data_list_row(-1,columnCount, columnNames, true, false))
 
-        val dataRowCount = 7 // Todo:: замість 7 маю бути функція, що повертає кількість рядків даних у таблиці, з якою користувач зараз працює
+        val checkRow = module["size_table_row"]
+        val checkSelectData = module["db_read_data"]
+        val dataRowCount = Integer.parseInt(checkRow?.call(tableName, checkNameCol?.call(tableName, 0).toString()).toString())
         for(i in 0..<dataRowCount step 1){
             //Todo: замінити цей хардкод на бекенд, що буде витягувати порядково дані з таблиці та добавляти їх у columnData у форматі класу Data_list_row
-            columnData.add(Data_list_row(i+1, columnCount, arrayListOf("test_data1","test_data2","test_data3","test_data4"), false, false))
+                columnData.add(Data_list_row(i+1, columnCount, arrayListOf("data","data1","data2"), false, false))
         }
 
         columnDataToDisplay.addAll(columnData)
