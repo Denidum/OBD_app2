@@ -12,7 +12,9 @@ def create_qr_code(data, filename="qrcode.png"):
     img = qr.make_image(fill_color="black", back_color="white")
     img.save(filename)
 
-    print(f"QR-код збережено у файлі '{filename}'")
+    name_qr="QR4.png"
+
+    return name_qr
 
 def read_qr_code(image_path):
     image = cv2.imread(image_path)
@@ -27,12 +29,12 @@ def encryption(id_table, id_client, id_row):
 
 def dencryption(data):
     a = data.split(".")
-    print(a)
+    return a
 
-id_table = 4
-id_client = 1
-id_row = 7
+#id_table = 4
+#id_client = 1
+#id_row = 7
 
-create_qr_code(encryption(id_table, id_client, id_row), "QR4.png")
+#create_qr_code(encryption(id_table, id_client, id_row), "QR4.png")
 
-dencryption(read_qr_code("QR4.png"))
+#dencryption(read_qr_code("QR4.png"))
