@@ -26,20 +26,21 @@
             android:textSize="20sp"
             android:layout_marginTop="70dp"/>
 
-        <Spinner
-            android:id="@+id/main_gen_qr_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="5dp"
-            android:layout_marginTop="20dp"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp" />
+
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity="center">
+            <Spinner
+                android:id="@+id/main_gen_qr_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_spinner_data_type"
+                android:dropDownVerticalOffset = "35dp"
+                />
         <Button
             android:id="@+id/main_gen_qr_page_choose_data_button"
             android:layout_width="match_parent"
