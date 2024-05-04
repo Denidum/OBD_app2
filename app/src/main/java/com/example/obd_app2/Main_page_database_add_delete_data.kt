@@ -2,6 +2,7 @@ package com.example.obd_app2
 
 import Adapters.DataListDeleteAdapter
 import Table_or_data_classes.Data_list_row
+import android.app.Activity
 import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
@@ -67,18 +68,36 @@ class Main_page_database_add_delete_data : Fragment(), ChooseTableOrDataToDelete
 
         val columnDataToDisplay = arrayListOf<Data_list_row>(Data_list_row(-1,columnCount, columnNames, true, false))
 
+
+
         val checkRow = module["size_table_row"]
         val checkSelectData = module["db_read_data"]
+        val checkSelectFirstData = module["db_read_data_from_first_col"]
         val dataRowCount = Integer.parseInt(checkRow?.call(tableName, checkNameCol?.call(tableName, 0).toString()).toString())
-        for(i in 0..<dataRowCount step 1){
-            //Todo: замінити цей хардкод на бекенд, що буде витягувати порядково дані з таблиці та добавляти їх у columnData у форматі класу Data_list_row
-                columnData.add(Data_list_row(i+1, columnCount, arrayListOf("data","data1","data2"), false, false))
+
+        for(i in 0..<dataRowCount step 1) {
+            val DataInColumns = mutableListOf<String>()
+            for (k in 0..<columnCount step 1) {
+                DataInColumns.add(checkSelectData?.call(
+                    checkNameCol?.call(tableName, k).toString(),
+                    tableName,
+                    checkNameCol?.call(tableName, 0).toString(),
+                    checkSelectFirstData?.call(
+                        checkNameCol?.call(tableName, 0).toString(),
+                        tableName,
+                        i
+                    ).toString()
+                ).toString())
+            }
+            columnData.add(Data_list_row(i + 1, columnCount, DataInColumns, false, false))
+
         }
 
-        columnDataToDisplay.addAll(columnData)
+       columnDataToDisplay.addAll(columnData)
 
-        val adapter = DataListDeleteAdapter(v.context, columnDataToDisplay, this)
+        var adapter = DataListDeleteAdapter(v.context, columnDataToDisplay, this)
         dataList.adapter = adapter
+
 
         val deleteBtn = v.findViewById<Button>(R.id.main_database_add_delete_delete_button)
         deleteBtn.setOnClickListener {
@@ -127,7 +146,17 @@ class Main_page_database_add_delete_data : Fragment(), ChooseTableOrDataToDelete
     }
 
     private fun deleteTableFromSQL(rastrelList: ArrayList<Data_list_row>) {
-        //Todo: тут реалізовуєш бекенд для видалення даних на основі інфи у елементів з rastrelList
+        val py = Python.getInstance()
+        val module = py.getModule("bd")
+
+        val checkNameCol= module["info_columns_name"]
+        val checkDeleteInfoData= module["delete_row_table"]
+
+        for(i in 0..<rastrelList.size step 1) {
+            val infoDel = checkDeleteInfoData?.call(tableName, checkNameCol?.call(tableName, 0).toString(),rastrelList[i].columnData[0]).toString()
+            Toast.makeText(context, infoDel + "is deleted", Toast.LENGTH_SHORT).show()
+        }
+
         myInterface!!.passDataToMainToReplaceFrags(Main_page_database_add_delete_data(), 0)
     }
 

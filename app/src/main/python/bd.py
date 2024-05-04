@@ -4,7 +4,8 @@ import mysql.connector
 
 try:
     connect = mysql.connector.connect(
-        host="192.168.1.14 ",
+        host="192.168.1.14",
+        #host="192.168.230.96",
         user="client",
         password="KillJoy98",
         database="qdms"
@@ -308,19 +309,54 @@ def info_columns_type(name_table, number):
     connect.commit()
     return nc
 
-def db_plus_data(info_col,name_col, name_table):
+def db_plus_data(info_col, id_col, name_col, name_table, first_name, data_first_name):
     if i==1:
-        cursor.execute("INSERT INTO "+name_table+" ("+name_col+") VALUES(%s);", (info_col,))
+        if id_col==0:
+            cursor.execute("INSERT INTO "+name_table+" ("+name_col+") VALUES(%s);", (info_col,))
+        else:
+            cursor.execute("UPDATE " + name_table + " SET " + name_col + " = %s WHERE " + first_name +" = %s;", (info_col, data_first_name))
     else:
         cursor.execute("INSERT INTO "+name_table+" ("+name_col+") VALUES(?);", (info_col,))
     connect.commit()
     return "correct"
 
-def db_read_data(name_col, name_table):
+def db_read_data_from_first_col(name_col, name_table, k):
+    t=0
+    ic=0
     if i==1:
         cursor.execute("SELECT "+name_col+" FROM "+name_table)
     else:
         cursor.execute("SELECT "+name_col+" FROM "+name_table)
+    while True:
+        next_row = cursor.fetchone()
+        if next_row:
+            if t==k:
+                ic = next_row
+                t=t+1
+            else:
+                t=t+1
+        else:
+            break
+    connect.commit()
+    return ic[0]
+
+def db_read_data(name_col, name_table, first_name, data_first_name):
+    if i==1:
+        cursor.execute("SELECT "+name_col+" FROM "+name_table + " WHERE " + first_name +" = %s;", (data_first_name, ))
+    else:
+        cursor.execute("SELECT "+name_col+" FROM "+name_table)
     info_col = cursor.fetchone()
+    if info_col is not None:
+        info_col = info_col[0]
+    else:
+        info_col = "null"
     connect.commit()
     return info_col
+
+def delete_row_table(name_table, first_col, info_col):
+    if i==1:
+        cursor.execute("DELETE FROM "+name_table+" WHERE "+first_col+" = %s", (info_col, ))
+    else:
+        cursor.execute("DELETE FROM "+name_table+" WHERE "+first_col+" = ?", (info_col,))
+    connect.commit()
+    return name_table

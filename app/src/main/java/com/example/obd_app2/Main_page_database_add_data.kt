@@ -101,11 +101,13 @@ class Main_page_database_add_data : Fragment(), EditTextChangeListener {
                 }
             }
 
+            var firstCol = checkNameCol?.call(tableName, 0).toString()
+            var firstColData = insertDataList[0]
+
             if(isInsertDataSucc == 1){
-                //Todo: тут має бути бекенд, що добавляє нові дані у таблицю, на основі insertDataList
 
                 for(i in 0..<columnCount step 1){
-                    checkInsertData?.call(insertDataList[i], checkNameCol?.call(tableName, i).toString(), tableName).toString()
+                    checkInsertData?.call(insertDataList[i], i, checkNameCol?.call(tableName, i).toString(), tableName, firstCol, firstColData).toString()
                 }
 
                 Toast.makeText(context, "Data insertion is successful", Toast.LENGTH_SHORT).show()
