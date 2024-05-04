@@ -2,7 +2,14 @@ package com.example.obd_app2
 
 import Adapters.DataListDeleteAdapter
 import Table_or_data_classes.Data_list_row
+import android.content.ContentValues
+import android.content.Context
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,11 +18,25 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ListView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import com.example.obd_app2.interfaces.ChooseTableOrDataToDelete
 import com.example.obd_app2.interfaces.Main_to_secondary_frags
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.MultiFormatWriter
+import com.google.zxing.WriterException
+import com.journeyapps.barcodescanner.BarcodeEncoder
+import java.io.IOException
+import java.lang.RuntimeException
 
 
 class Main_page_gen_qr_choosing_data : Fragment(), ChooseTableOrDataToDelete{//мені було впадлу робити новий інтерфейс
+
+    private var readPermissionGranted = false
+    private var writePermissionGranted = false
+    private lateinit var permissionsLauncher: ActivityResultLauncher<Array<String>>
+
     private var myInterface: Main_to_secondary_frags? = null
     private var columnData = arrayListOf<Data_list_row>()
     private var userId: Int? = null
@@ -70,13 +91,26 @@ class Main_page_gen_qr_choosing_data : Fragment(), ChooseTableOrDataToDelete{//�
         adapter = DataListDeleteAdapter(v.context, columnDataToDisplay, this)
         dataList.adapter = adapter
 
+        permissionsLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            readPermissionGranted = permissions[android.Manifest.permission.READ_EXTERNAL_STORAGE] ?: readPermissionGranted
+            writePermissionGranted = permissions[android.Manifest.permission.WRITE_EXTERNAL_STORAGE] ?: writePermissionGranted
+        }
+        updateOrRequestPermissions(v.context)
+
         val genQRBtn = v.findViewById<Button>(R.id.main_gen_qr_page_choosing_data_gen_qr_button)
         genQRBtn.setOnClickListener {
             if (selectedRowId == -1){
                 Toast.makeText(context, "Choose one data row to generate QR code", Toast.LENGTH_SHORT).show()
             }
             else{
-                genQr()
+                updateOrRequestPermissions(v.context)
+                if(writePermissionGranted){
+                    Log.d("myLog", "Permission granted")
+                    genQr(v.context)
+                }
+                else{
+                    Toast.makeText(v.context,"App needs access to storage to save QR code file", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
@@ -88,9 +122,6 @@ class Main_page_gen_qr_choosing_data : Fragment(), ChooseTableOrDataToDelete{//�
         return v
     }
 
-    private fun genQr() {
-        //Todo: тут реалізовуєш бекенд для створення QR коду на основі userId, tableId та selectedRowId(зберігає id рядка у таблиці з БД)
-    }
 
     override fun buttonChecked(index: Int) {
         //тут я реалізовую обмеження лише вибору у розмірі одного рядка
@@ -111,5 +142,77 @@ class Main_page_gen_qr_choosing_data : Fragment(), ChooseTableOrDataToDelete{//�
         columnData[index-1].isChecked = false
         selectedRowId = -1
         Log.d("myLog","${selectedRowId}")
+    }
+
+    private fun genQr(context: Context) {
+        //Todo: зроби зміну типу string, що буде шифрувати посилання (userId, tableId, selectedRowId)
+        Log.d("myLog", "gen QR")
+        //коли інтегруєш бекенд, розкоментуй функції знизу
+        //createQRCode(/*назва змінної, що зберігає зашифроване посилання*/, context)
+    }
+
+    private fun createQRCode(str: String, context: Context){
+        val multi = MultiFormatWriter()
+        try{
+            val bitMatrix = multi.encode(str, BarcodeFormat.QR_CODE, 300, 300)
+            val bEnc = BarcodeEncoder()
+            val bitmap = bEnc.createBitmap(bitMatrix)
+            saveQRCode("test", bitmap, context)
+
+        }catch (e: WriterException){
+            throw RuntimeException(e)
+        }
+    }
+    private fun saveQRCode(filename: String, bmp: Bitmap, context: Context): Boolean{
+            val imageCollection = sdk29AndUp {
+                MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
+            } ?: MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+
+            val contentValues = ContentValues().apply {
+                put(MediaStore.Images.Media.DISPLAY_NAME, "$filename.jpg")
+                put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
+                put(MediaStore.Images.Media.WIDTH, bmp.width)
+                put(MediaStore.Images.Media.HEIGHT, bmp.height)
+                put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
+            }
+            return try {
+                context.contentResolver.insert(imageCollection, contentValues)?.also { uri ->
+                    context.contentResolver.openOutputStream(uri).use { outputStream ->
+                        if(!outputStream?.let { bmp.compress(Bitmap.CompressFormat.JPEG, 95, it) }!!) {
+                            throw IOException("Couldn't save bitmap")
+                        }
+                    }
+                } ?: throw IOException("Couldn't create MediaStore entry")
+                true
+            } catch(e: IOException) {
+                e.printStackTrace()
+                false
+            }
+    }
+
+    private fun updateOrRequestPermissions(context: Context) {
+        val hasReadPermission = ContextCompat.checkSelfPermission(
+            context,
+            android.Manifest.permission.READ_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED
+        val hasWritePermission = ContextCompat.checkSelfPermission(
+            context,
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED
+        val minSdk29 = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
+
+        readPermissionGranted = hasReadPermission
+        writePermissionGranted = hasWritePermission || minSdk29
+
+        val permissionsToRequest = mutableListOf<String>()
+        if(!writePermissionGranted) {
+            permissionsToRequest.add(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+        }
+        if(!readPermissionGranted) {
+            permissionsToRequest.add(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        }
+        if(permissionsToRequest.isNotEmpty()) {
+            permissionsLauncher.launch(permissionsToRequest.toTypedArray())
+        }
     }
 }
