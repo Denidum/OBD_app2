@@ -258,7 +258,7 @@ def count_column(name_table):
     if i==1:
         cursor.execute("SELECT COUNT(COLUMN_NAME) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'qdms' AND TABLE_NAME = %s;",(name_table,))
     else:
-        cursor.execute("SELECT COUNT(COLUMN_NAME) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'qdms' AND TABLE_NAME ='{}'".format(name_table, ))
+        cursor.execute("SELECT COUNT(*) FROM pragma_table_info('" + name_table + "') WHERE name = 'column_name';")
     count_row = cursor.fetchone()
     if count_row is not None:
         count = int(count_row[0])
@@ -272,42 +272,66 @@ def info_columns_name(name_table, number):
     nc=0
     if i == 1:
         cursor.execute("SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'qdms' AND TABLE_NAME = %s;",(name_table,))
-    else:
-        cursor.execute("SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'list' AND TABLE_NAME ='{}'".format(name_table, ))
-    while True:
-        next_row = cursor.fetchone()
-        if next_row:
-            (name_col, type_col) = next_row
-            if t==number:
-                nc = name_col
-                t=t+1
+        while True:
+            next_row = cursor.fetchone()
+            if next_row:
+                (name_col, type_col) = next_row
+                if t==number:
+                    nc = name_col
+                    t=t+1
+                else:
+                    t=t+1
             else:
-                t=t+1
-        else:
-            break
-    connect.commit()
-    return nc
+                break
+        connect.commit()
+        return nc
+    else:
+        cursor.execute("PRAGMA table_info('{}');".format(name_table))
+        while True:
+            next_row = cursor.fetchone()
+            if next_row:
+                name_col = next_row[0]
+                t += 1
+                if t == number:
+                    nc = name_col
+                    break
+            else:
+                break
+        connect.commit()
+        return nc
 
 def info_columns_type(name_table, number):
     t=0
     nc=0
     if i == 1:
         cursor.execute("SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'qdms' AND TABLE_NAME = %s;",(name_table,))
-    else:
-        cursor.execute("SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'list' AND TABLE_NAME ='{}'".format(name_table, ))
-    while True:
-        next_row = cursor.fetchone()
-        if next_row:
-            (name_col, type_col) = next_row
-            if t==number:
-                nc = type_col
-                t=t+1
+        while True:
+            next_row = cursor.fetchone()
+            if next_row:
+                (name_col, type_col) = next_row
+                if t==number:
+                    nc = type_col
+                    t=t+1
+                else:
+                    t=t+1
             else:
-                t=t+1
-        else:
-            break
-    connect.commit()
-    return nc
+                break
+        connect.commit()
+        return nc
+    else:
+        cursor.execute("PRAGMA table_info('{}');".format(name_table))
+        while True:
+            next_row = cursor.fetchone()
+            if next_row:
+                name_col = next_row[1]
+                t += 1
+                if t == number:
+                    nc = name_col
+                    break
+            else:
+                break
+        connect.commit()
+        return nc
 
 def db_plus_data(info_col, id_col, name_col, name_table, first_name, data_first_name):
     if i==1:
@@ -316,7 +340,10 @@ def db_plus_data(info_col, id_col, name_col, name_table, first_name, data_first_
         else:
             cursor.execute("UPDATE " + name_table + " SET " + name_col + " = %s WHERE " + first_name +" = %s;", (info_col, data_first_name))
     else:
-        cursor.execute("INSERT INTO "+name_table+" ("+name_col+") VALUES(?);", (info_col,))
+        if id_col==0:
+            cursor.execute("INSERT INTO "+name_table+" ("+name_col+") VALUES(?);", (info_col,))
+        else:
+            cursor.execute("UPDATE " + name_table + " SET " + name_col + " = ? WHERE " + first_name +" = ?;", (info_col, data_first_name))
     connect.commit()
     return "correct"
 
