@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
 import android.widget.Toast
+import com.chaquo.python.Python
 import com.example.obd_app2.interfaces.Main_to_secondary_frags
 
 class Main_page_qr : Fragment() {
@@ -32,9 +33,19 @@ class Main_page_qr : Fragment() {
         userId = data?.getInt("id")
 
         val items = arrayListOf<Table>()
-        //Todo: Робиш бекенд такий самий, як у Main_page_database, тобто добавляєш таблиці користувача у список items
-        items.add(Table(1, "Test Table1", 4, "00:00 1th January 2024"))
-        items.add(Table(2, "Test Table2", 4, "00:00 1th January 2024"))
+        val py = Python.getInstance()
+        val module = py.getModule("bd")
+
+        val checkSizeTable = module["size_table"]
+        val checkTime = module["info_table_time"]
+        val checkRow = module["info_table_row"]
+        val checkIdTable = module["info_table_name_table"]
+
+        for (i in 0..Integer.parseInt(checkSizeTable?.call(userId).toString()) - 1) {
+            items.add(
+                Table(i, checkIdTable?.call(i, userId).toString(), Integer.parseInt(checkRow?.call(i, userId).toString()), checkTime?.call(i, userId).toString())
+            )
+        }
         val tableName = arrayListOf<String>()
         //перевірка чи користувач має таблиці
         if(items.size > 0) {
@@ -75,7 +86,7 @@ class Main_page_qr : Fragment() {
 
         val chooseBtn: Button = v.findViewById(R.id.main_gen_qr_page_choose_data_button)
         chooseBtn.setOnClickListener {
-            if(selectedTable!!.id != 0){
+            if(selectedTable!!.id != -1){
                 myInterface.passDataToMainToReplaceFrags(Main_page_gen_qr_choosing_data(), 0, selectedTable!!.id)
             }
             else{

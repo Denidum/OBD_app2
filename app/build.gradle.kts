@@ -35,7 +35,10 @@ android {
             pip {
                 // A requirement specifier, with or without a version number:
                 install("mysql-connector-python")
-
+                install("qrcode")
+                install("pypng")
+                install("opencv-python-headless")
+                install("opencv-python")
             }
         }
         productFlavors {
