@@ -166,6 +166,6 @@ def change_data():
 
 
 if __name__ == '__main__':
-    #db_plus_table("Test", "testCol0", "text", "testCol1", "text", "testCol2", "text")
-    #db_plus_table_info()
     change_data()
+    print("Hello world")
+
