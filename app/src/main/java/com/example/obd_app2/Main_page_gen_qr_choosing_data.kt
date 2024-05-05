@@ -149,6 +149,7 @@ class Main_page_gen_qr_choosing_data : Fragment(), ChooseTableOrDataToDelete{//�
         Log.d("myLog", "gen QR")
         //коли інтегруєш бекенд, розкоментуй функції знизу
         //createQRCode(/*назва змінної, що зберігає зашифроване посилання*/, context)
+        //Toast.makeText(v.context,"QR was successfully saved to gallery ", Toast.LENGTH_SHORT).show()
     }
 
     private fun createQRCode(str: String, context: Context){
