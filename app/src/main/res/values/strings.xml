@@ -79,6 +79,7 @@
     <string name="style_add_delete_column_item_str_enter_name">Enter column name</string>
     <string name="style_add_delete_column_item_str_data_type_label">Data type:</string>
     <string name="style_spinner_data_type_item_str">Choose type of data</string>
+    <string name="main_page_scan_data_str_label">Data from QR code</string>
 
 
 </resources>
