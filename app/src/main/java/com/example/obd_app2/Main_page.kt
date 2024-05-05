@@ -11,9 +11,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import com.chaquo.python.Python
 import com.example.obd_app2.interfaces.Main_to_secondary_frags
 import com.example.obd_app2.interfaces.Main_user_to_main_act
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.time.LocalDateTime
 
 
 class Main_page : AppCompatActivity(), Main_user_to_main_act, Main_to_secondary_frags {
@@ -47,8 +49,17 @@ class Main_page : AppCompatActivity(), Main_user_to_main_act, Main_to_secondary_
             Toast.makeText(this, "Scanning was cancelled", Toast.LENGTH_SHORT).show()
         }
         else if(scanData!=null){
-            //Todo: тут має бути функція дешифрування
-            Toast.makeText(this, "Scan data: $scanData", Toast.LENGTH_SHORT).show()
+            val py = Python.getInstance()
+            val module = py.getModule("qr")
+
+            val checkQrScanTable = module["dencryption_table"]
+            val checkQrScanRow = module["dencryption_table"]
+            val checkQrInfo = module["db_read_qr_info"]
+
+            val idTable = checkQrScanTable?.call(scanData).toString()
+            val idRow = checkQrScanRow?.call(scanData).toString()
+
+            Toast.makeText(this, "Scan data: " + checkQrInfo?.call(idTable, idRow, userId).toString(), Toast.LENGTH_SHORT).show()
         }
 
         bnv.setOnItemSelectedListener{

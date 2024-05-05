@@ -2,6 +2,7 @@ package com.example.obd_app2
 
 import Adapters.DataListDeleteAdapter
 import Table_or_data_classes.Data_list_row
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.content.pm.PackageManager
@@ -157,17 +158,6 @@ class Main_page_gen_qr_choosing_data : Fragment(), ChooseTableOrDataToDelete{//�
         return v
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun genQr() {
-        //Todo: тут реалізовуєш бекенд для створення QR коду на основі userId, tableId та selectedRowId(зберігає id рядка у таблиці з БД)
-        val py = Python.getInstance()
-        val module = py.getModule("qr")
-
-        val checkQrPlus = module["db_plus_qr_info"]
-
-        Toast.makeText(context,checkQrPlus?.call(tableId,userId, selectedRowId, LocalDateTime.now()).toString()+" generated", Toast.LENGTH_SHORT).show()
-    }
-
     override fun buttonChecked(index: Int) {
         //тут я реалізовую обмеження лише вибору у розмірі одного рядка
         for(i in 0..<index-1 step 1){
@@ -189,21 +179,28 @@ class Main_page_gen_qr_choosing_data : Fragment(), ChooseTableOrDataToDelete{//�
         Log.d("myLog","${selectedRowId}")
     }
 
+    @SuppressLint("NewApi")
     private fun genQr(context: Context) {
-        //Todo: зроби зміну типу string, що буде шифрувати посилання (userId, tableId, selectedRowId)
-        Log.d("myLog", "gen QR")
-        //коли інтегруєш бекенд, розкоментуй функції знизу
-        //createQRCode(/*назва змінної, що зберігає зашифроване посилання*/, context)
-        //Toast.makeText(v.context,"QR was successfully saved to gallery ", Toast.LENGTH_SHORT).show()
+        val py = Python.getInstance()
+        val module = py.getModule("qr")
+
+        val checkQrEnc = module["encryption"]
+
+        createQRCode(checkQrEnc?.call(tableId, userId, selectedRowId).toString(), context)
+        Toast.makeText(context,"QR was successfully saved to gallery ", Toast.LENGTH_SHORT).show()
     }
 
+    @SuppressLint("NewApi")
     private fun createQRCode(str: String, context: Context){
         val multi = MultiFormatWriter()
+        val py = Python.getInstance()
+        val module = py.getModule("qr")
         try{
             val bitMatrix = multi.encode(str, BarcodeFormat.QR_CODE, 300, 300)
             val bEnc = BarcodeEncoder()
             val bitmap = bEnc.createBitmap(bitMatrix)
-            saveQRCode("test", bitmap, context)
+            val checkQrPlus = module["db_plus_qr_info"]
+            saveQRCode(checkQrPlus?.call(tableId,userId, selectedRowId, LocalDateTime.now().toString()).toString(), bitmap, context)
 
         }catch (e: WriterException){
             throw RuntimeException(e)
