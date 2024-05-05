@@ -63,9 +63,9 @@ class Main_page : AppCompatActivity(), Main_user_to_main_act, Main_to_secondary_
             bnv.selectedItemId = R.id.ic_scan
             currSelectedItem = 3
             findViewById<TextView>(R.id.main_tool_bar_top_title).text = getString(titlesArray[currSelectedItem])
-            //Todo: тут має бути функція дешифрування
-            val idTable = checkQrScanTable?.call(scanData).toString()
-            val idRow = checkQrScanRow?.call(scanData).toString()
+
+            tableIdtoWork = Integer.parseInt(checkQrScanTable?.call(scanData).toString())
+            rowIdtoDisplay = Integer.parseInt(checkQrScanRow?.call(scanData).toString())
             replaceFragment(Main_page_scan_data(), 0)
 
         }
