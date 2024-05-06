@@ -70,7 +70,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginRight="40dp"
             android:backgroundTint="@color/gray"
-            android:text="@string/main_home_add_table_page_str_button"
+            android:text="@string/main_database_page_str_add_delete_add_data_button"
             android:textColor="@color/almostblack"
             android:textSize="20sp" />
 
