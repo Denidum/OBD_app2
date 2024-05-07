@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">OBD_dev_version</string>
+    <string name="app_name">QDMS</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="welcome_main_page_str">Welcome to QR Data Manager</string>
+    <string name="welcome_main_page_str">Welcome to QR Data Management Studio</string>
     <string name="welcome_page_str_login">Login:</string>
     <string name="welcome_page_str_enter_login">Enter login</string>
     <string name="welcome_page_str_pass">Password:</string>
