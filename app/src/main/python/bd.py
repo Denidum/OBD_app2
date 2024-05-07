@@ -6,6 +6,7 @@ try:
     connect = mysql.connector.connect(
         host="192.168.1.14",
         #host="192.168.230.96",
+        #host="192.168.0.103",
         user="client",
         password="KillJoy98",
         database="qdms"
@@ -46,6 +47,28 @@ def check_info_human(name_human='', passw_human=''):
         else:
             return "Wrong"
 
+def check_login_human(id_user):
+    if i==1:
+        cursor.execute("SELECT * FROM sys_human_list where id = %s", (id_user, ))
+    else:
+        cursor.execute("SELECT * FROM sys_human_list where id = ?", (id_user, ))
+    next_row = cursor.fetchone()
+    connect.commit()
+    (id, login, passw, em) = next_row
+    return login
+
+
+def check_email_human(id_user):
+    if i==1:
+        cursor.execute("SELECT * FROM sys_human_list where id = %s", (id_user, ))
+    else:
+        cursor.execute("SELECT * FROM sys_human_list where id = ?", (id_user, ))
+    next_row = cursor.fetchone()
+    connect.commit()
+    (id, login, passw, em) = next_row
+    return em
+
+
 def contains_only_alphanumeric(s):
     return all(c.isalnum() for c in s)
 
@@ -69,6 +92,8 @@ def check_name_table(name_table):
         else:
             connect.commit()
             return "false"
+
+
 
 def count_id(name_table):
     cursor.execute("SELECT * FROM "+name_table)
