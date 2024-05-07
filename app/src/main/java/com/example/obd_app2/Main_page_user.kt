@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import com.example.obd_app2.interfaces.Main_user_to_main_act
 import com.example.obd_app2.interfaces.Welcome_page_interface
 
@@ -24,6 +25,10 @@ class Main_page_user : Fragment() {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_main_page_user, container, false)
         val logOutBtn = v.findViewById<Button>(R.id.main_user_page_log_out_button)
+        val changBtn = v.findViewById<Button>(R.id.main_user_page_change_pass_button)
+        changBtn.setOnClickListener {
+            Toast.makeText(v.context, "Will be added in new versions", Toast.LENGTH_SHORT).show()
+        }
 
         val data = arguments
         //достається id користувача
@@ -42,6 +47,7 @@ class Main_page_user : Fragment() {
         logOutBtn.setOnClickListener{
             myInterface.intentDataFromMainToWelc(0)
         }
+
         return v
     }
 

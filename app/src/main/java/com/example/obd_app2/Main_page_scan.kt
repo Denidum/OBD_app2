@@ -29,6 +29,10 @@ class Main_page_scan : Fragment() {
     ): View? {
         val v = inflater.inflate(R.layout.fragment_main_page_scan, container, false)
         val cameraButton: Button = v.findViewById(R.id.main_scan_page_camera_button)
+        val storBtn: Button = v.findViewById(R.id.main_scan_page_import_button)
+        storBtn.setOnClickListener {
+            Toast.makeText(v.context, "Will be added in new versions", Toast.LENGTH_SHORT).show()
+        }
         val data = arguments
         val userId = data?.getInt("id")
         cameraButton.setOnClickListener{

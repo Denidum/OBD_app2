@@ -55,6 +55,7 @@ class Main_page_database : Fragment() {
         val addDelBtn = v.findViewById<Button>(R.id.main_database_page_add_del_data_button)
         val redBtn = v.findViewById<Button>(R.id.main_database_page_redact_table_button)
         val viewBtn = v.findViewById<Button>(R.id.main_database_page_view_table_button)
+        val accBtn = v.findViewById<Button>(R.id.main_database_page_add_del_access_button)
         val tableSpr = v.findViewById<Spinner>(R.id.main_database_page_database_spinner)
 
         val adap = ArrayAdapter(v.context, R.layout.style_spinner_data_type_selected_item, tableName)
@@ -87,11 +88,14 @@ class Main_page_database : Fragment() {
                 Toast.makeText(context, "There is no table to work with", Toast.LENGTH_SHORT).show()
             }
         }
+        accBtn.setOnClickListener {
+            Toast.makeText(v.context, "Will be added in new versions", Toast.LENGTH_SHORT).show()
+        }
         redBtn.setOnClickListener {
-            myInterface.passDataToMainToReplaceFrags(Main_page_database_redact_data_choosing(), 1)
+            Toast.makeText(v.context, "Will be added in new versions", Toast.LENGTH_SHORT).show()
         }
         viewBtn.setOnClickListener {
-            myInterface.passDataToMainToReplaceFrags(Main_page_database_data_view(), 1)
+            Toast.makeText(v.context, "Will be added in new versions", Toast.LENGTH_SHORT).show()
         }
         return v
     }

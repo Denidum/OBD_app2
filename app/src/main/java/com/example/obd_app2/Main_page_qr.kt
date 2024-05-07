@@ -85,7 +85,7 @@ class Main_page_qr : Fragment() {
 
         val listBtn: Button = v.findViewById(R.id.main_gen_qr_page_list_created_qr_button)
         listBtn.setOnClickListener {
-            myInterface.passDataToMainToReplaceFrags(Main_page_list_of_created_qrs(), 1)
+            Toast.makeText(v.context, "Will be added in new versions", Toast.LENGTH_SHORT).show()
         }
         return v
     }
