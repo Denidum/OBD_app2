@@ -373,24 +373,21 @@ def db_plus_data(info_col, id_col, name_col, name_table, first_name, data_first_
     return "correct"
 
 def db_read_data_from_first_col(name_col, name_table, k):
-    t=0
-    ic=0
-    if i==1:
-        cursor.execute("SELECT "+name_col+" FROM "+name_table)
-    else:
-        cursor.execute("SELECT "+name_col+" FROM "+name_table)
+    t = 0
+    ic = None  # Ініціалізуємо змінну ic як None, щоб перевірити, чи вона була присвоєна значенню пізніше
+    cursor.execute("SELECT "+name_col+" FROM "+name_table)
     while True:
         next_row = cursor.fetchone()
         if next_row:
-            if t==k:
-                ic = next_row
-                t=t+1
+            if t == k:  # Якщо t дорівнює k, то ми досягли потрібного рядка
+                ic = next_row[0]  # Присвоюємо значення елемента рядка з індексом 0 змінній ic
+                t+=1 # Завершуємо цикл, оскільки ми знайшли потрібне значення
             else:
-                t=t+1
+                t += 1
         else:
-            break
+            break  # Якщо немає більше рядків, виходимо з циклу
     connect.commit()
-    return ic[0]
+    return ic
 
 def db_read_data(name_col, name_table, first_name, data_first_name):
     if i==1:
@@ -412,3 +409,9 @@ def delete_row_table(name_table, first_col, info_col):
         cursor.execute("DELETE FROM "+name_table+" WHERE "+first_col+" = ?", (info_col,))
     connect.commit()
     return name_table
+
+def check_id_human_qr():
+    if i==1:
+        cursor.execute(" select * from qdms.sys_human_table inner join qdms.table_user on qdms.sys_human_table.id_name_table = qdms.table_user.id_name_table")
+    else:
+        return None

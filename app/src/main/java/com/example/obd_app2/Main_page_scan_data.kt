@@ -47,48 +47,55 @@ class Main_page_scan_data : Fragment() {
         val checkIdTable = module["info_table_name_table"]
 
         tableLabel.text = checkIdTable?.call(tableId, userId).toString()
-        //кількість колонок
-        val checkSizeTable = module["count_column"]
 
-        val columnCount: Int = Integer.parseInt(checkSizeTable?.call(tableLabel.text).toString())
-
-        //назви колонок
-        val columnNames = arrayListOf<String>()
-
-        val checkNameCol= module["info_columns_name"]
-
-        for(i in 0..<columnCount step 1){
-            columnNames.add(checkNameCol?.call(tableLabel.text, i).toString())
+        if (checkIdTable?.call(tableId, userId).toString()=="null") {
+            tableLabel.text = "It's not your QR"
         }
+        else {
+            //кількість колонок
+            val checkSizeTable = module["count_column"]
 
-        //значення в кожній з колонок
+            val columnCount: Int =
+                Integer.parseInt(checkSizeTable?.call(tableLabel.text).toString())
 
-        val checkSelectData = module["db_read_data"]
-        val checkSelectFirstData = module["db_read_data_from_first_col"]
+            //назви колонок
+            val columnNames = arrayListOf<String>()
 
-        val DataInColumns = mutableListOf<String>()
-            for (k in 0..<columnCount step 1) {
-                DataInColumns.add(checkSelectData?.call(
-                    checkNameCol?.call(tableLabel.text, k).toString(),
-                    tableLabel.text,
-                    checkNameCol?.call(tableLabel.text, 0).toString(),
-                    checkSelectFirstData?.call(
-                        checkNameCol?.call(tableLabel.text, 0).toString(),
-                        tableLabel.text,
-                        rowId
-                    ).toString()
-                ).toString())
+            val checkNameCol = module["info_columns_name"]
+
+            for (i in 0..<columnCount step 1) {
+                columnNames.add(checkNameCol?.call(tableLabel.text, i).toString())
             }
 
-        var dataToDisplay = ArrayList<Data_from_row>()
+            //значення в кожній з колонок
 
-        for (i in 0..<columnCount step 1){
-            dataToDisplay.add(Data_from_row(columnNames[i], DataInColumns[i]))
+            val checkSelectData = module["db_read_data"]
+            val checkSelectFirstData = module["db_read_data_from_first_col"]
+
+            val DataInColumns = mutableListOf<String>()
+            for (k in 0..<columnCount step 1) {
+                DataInColumns.add(
+                    checkSelectData?.call(
+                        checkNameCol?.call(tableLabel.text, k).toString(),
+                        tableLabel.text,
+                        checkNameCol?.call(tableLabel.text, 0).toString(),
+                        checkSelectFirstData?.call(
+                            checkNameCol?.call(tableLabel.text, 0).toString(),
+                            tableLabel.text,
+                            rowId
+                        ).toString()
+                    ).toString()
+                )
+            }
+
+            var dataToDisplay = ArrayList<Data_from_row>()
+
+            for (i in 0..<columnCount step 1) {
+                dataToDisplay.add(Data_from_row(columnNames[i], DataInColumns[i]))
+            }
+            val adapter = DataListAdapter(v.context, dataToDisplay)
+            dataList.adapter = adapter
         }
-
-        val adapter = DataListAdapter(v.context, dataToDisplay)
-        dataList.adapter = adapter
-
         val backButton = v.findViewById<Button>(R.id.main_page_scan_data_back_button)
         backButton.setOnClickListener {
             myInterface!!.passDataToMainToReplaceFrags(Main_page_scan(), -1, 0,-1)

@@ -28,13 +28,15 @@ def encryption(id_table, id_client, id_row):
     return a + "." + b
 
 
-def dencryption_table(data):
+def dencryption_table(data, client_id):
     a = data.split(".")
-    return int(hex(int(a[0], 0)), 16)
+    dig = int(hex(int(a[0], 0)), 16)
+    return dig - 5 * client_id
 
-def dencryption_row(data):
+def dencryption_row(data, client_id):
     a = data.split(".")
-    return int(hex(int(a[1], 0)), 16)
+    dig = int(hex(int(a[1], 0)), 16)
+    return dig - 10 * client_id
 
 #id_table = 4
 #id_client = 1

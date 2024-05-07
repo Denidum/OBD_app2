@@ -64,8 +64,8 @@ class Main_page : AppCompatActivity(), Main_user_to_main_act, Main_to_secondary_
             currSelectedItem = 3
             findViewById<TextView>(R.id.main_tool_bar_top_title).text = getString(titlesArray[currSelectedItem])
 
-            tableIdtoWork = Integer.parseInt(checkQrScanTable?.call(scanData).toString())
-            rowIdtoDisplay = Integer.parseInt(checkQrScanRow?.call(scanData).toString())
+            tableIdtoWork = Integer.parseInt(checkQrScanTable?.call(scanData, userId).toString())
+            rowIdtoDisplay = Integer.parseInt(checkQrScanRow?.call(scanData, userId).toString())
             replaceFragment(Main_page_scan_data(), 0)
 
         }
